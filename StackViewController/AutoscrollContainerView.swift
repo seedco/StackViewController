@@ -18,6 +18,11 @@ public class AutoscrollContainerView: UIScrollView {
         static let ScrollAnimationID = "AutoscrollAnimation"
     }
     private var _contentView: UIView?
+    
+    /// The content view to display inside the container view. Views can also
+    /// be added directly to this view without using the `contentView` property,
+    /// but it simply makes it more convenient for the common case where your
+    /// content fills the bounds of the scroll view.
     public var contentView: UIView? {
         get { return _contentView }
         set {
@@ -34,19 +39,20 @@ public class AutoscrollContainerView: UIScrollView {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        showsVerticalScrollIndicator = false
-        alwaysBounceVertical = true
-        
+    private func commonInit() {
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: #selector(AutoscrollContainerView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(AutoscrollContainerView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     deinit {
