@@ -1,5 +1,5 @@
 //
-//  AutoscrollContainerView.swift
+//  AutoScrollView.swift
 //  Seed
 //
 //  Created by Indragie Karunaratne on 2016-03-10.
@@ -11,7 +11,7 @@ import UIKit
 /// A scroll view that automatically scrolls to a subview of its `contentView`
 /// when the keyboard is shown. This replicates the behaviour implemented by
 /// `UITableView`.
-public class AutoscrollContainerView: UIScrollView {
+public class AutoScrollView: UIScrollView {
     private struct Constants {
         static let DefaultAnimationDuration: NSTimeInterval = 0.25
         static let DefaultAnimationCurve = UIViewAnimationCurve.EaseInOut
@@ -41,8 +41,8 @@ public class AutoscrollContainerView: UIScrollView {
     
     private func commonInit() {
         let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: #selector(AutoscrollContainerView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        nc.addObserver(self, selector: #selector(AutoscrollContainerView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override init(frame: CGRect) {
