@@ -3,12 +3,12 @@
 //  Seed
 //
 //  Created by Indragie Karunaratne on 1/29/16.
-//
+//  Copyright © 2016 Seed.co. All rights reserved.
 //
 
 import UIKit
 
-public protocol StackViewItem {
+public protocol StackViewItem: AnyObject {
     func toViewController() -> UIViewController
 }
 
