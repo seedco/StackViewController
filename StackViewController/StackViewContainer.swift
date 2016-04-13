@@ -3,6 +3,7 @@
 //  StackViewController
 //
 //  Created by Indragie Karunaratne on 2016-04-11.
+//  Copyright © 2016 Seed Platform, Inc. All rights reserved.
 //
 
 import UIKit
@@ -46,7 +47,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
         didSet { relayoutContent(true) }
     }
     private var items = [Item]()
-    private var separatorViewFactory: SeparatorViewFactory? {
+    public var separatorViewFactory: SeparatorViewFactory? {
         didSet { relayoutContent(false) }
     }
     
@@ -63,7 +64,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     
     public typealias SeparatorViewFactory = UILayoutConstraintAxis -> UIView
     
-    /// Constructs an instance of `StackViewContainer` that uses a stack view
+    /// Initializes an instance of `StackViewContainer` using a stack view
     /// with the default configuration, which is simply a `UIStackView` with
     /// all of its properties set to the default values except for `axis`, which
     /// is set to `.Vertical`.
@@ -71,7 +72,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
         self.init(stackView: constructDefaultStackView())
     }
     
-    /// Constructs an instance of `StackViewContainer` that uses an existing
+    /// Initializes an instance of `StackViewContainer` using an existing
     /// instance of `UIStackView`.
     public init(stackView: UIStackView) {
         self.stackView = stackView
@@ -177,7 +178,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
                     }
                 }
             }
-            if let index = stackView.arrangedSubviews.indexOf(lastItem.contentView) {
+            if let index = stackView.arrangedSubviews.indexOf({ $0 === lastItem.contentView}) {
                 stackInsertionIndex = index
             } else {
                 fatalError("The content view for \(lastItem) has been removed from the stack view")
@@ -212,7 +213,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
      - parameter view: The content view to remove
      */
     public func removeContentView(view: UIView) {
-        guard let index = contentViews.indexOf(view) else { return }
+        guard let index = contentViews.indexOf({ $0 === view }) else { return }
         removeContentViewAtIndex(index)
     }
     
@@ -242,7 +243,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
      visibility.
      */
     public func setCanShowSeparator(canShowSeparator: Bool, forContentView view: UIView) {
-        guard let index = contentViews.indexOf(view) else { return }
+        guard let index = contentViews.indexOf({ $0 === view }) else { return }
         setCanShowSeparator(canShowSeparator, forContentViewAtIndex: index)
     }
     

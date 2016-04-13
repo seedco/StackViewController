@@ -17,6 +17,7 @@
 		72B21E601CBC34F000724EB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72B21E5F1CBC34F000724EB8 /* Assets.xcassets */; };
 		72B21E631CBC34F000724EB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72B21E611CBC34F000724EB8 /* LaunchScreen.storyboard */; };
 		72B21E6B1CBC35AA00724EB8 /* AutoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B21E6A1CBC35AA00724EB8 /* AutoScrollView.swift */; };
+		72B91D771CBDF114004B0466 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B91D761CBDF114004B0466 /* SeparatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		72B21E621CBC34F000724EB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72B21E641CBC34F000724EB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72B21E6A1CBC35AA00724EB8 /* AutoScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollView.swift; sourceTree = "<group>"; };
+		72B91D761CBDF114004B0466 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				724B70D31CBC4240008D1458 /* StackViewController.swift */,
 				724B70D71CBC442A008D1458 /* StackViewItem.swift */,
 				724B70D91CBC48E4008D1458 /* StackViewContainer.swift */,
+				72B91D761CBDF114004B0466 /* SeparatorView.swift */,
 			);
 			path = StackViewController;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			files = (
 				724B70DA1CBC48E4008D1458 /* StackViewContainer.swift in Sources */,
 				724B70D21CBC37DD008D1458 /* NSLayoutConstraint+Seed.swift in Sources */,
+				72B91D771CBDF114004B0466 /* SeparatorView.swift in Sources */,
 				72B21E5B1CBC34F000724EB8 /* ViewController.swift in Sources */,
 				724B70D81CBC442A008D1458 /* StackViewItem.swift in Sources */,
 				724B70D41CBC4240008D1458 /* StackViewController.swift in Sources */,

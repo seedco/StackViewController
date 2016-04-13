@@ -3,6 +3,7 @@
 //  StackViewController
 //
 //  Created by Indragie Karunaratne on 2016-04-11.
+//  Copyright © 2016 Seed Platform, Inc. All rights reserved.
 //
 
 import UIKit

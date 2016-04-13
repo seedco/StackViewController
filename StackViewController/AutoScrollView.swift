@@ -3,7 +3,7 @@
 //  Seed
 //
 //  Created by Indragie Karunaratne on 2016-03-10.
-//
+//  Copyright © 2016 Seed Platform, Inc. All rights reserved.
 //
 
 import UIKit
