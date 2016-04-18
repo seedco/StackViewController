@@ -21,9 +21,6 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     /// the `axis` property. `StackViewContainer.axis` should be set instead.
     public let stackView: UIStackView
     
-    private var _backgroundView: UIView?
-    private var backgroundViewTopConstraint: NSLayoutConstraint?
-    
     /// An optional background view that is shown behind the stack view. The
     /// top of the background view will be kept pinned to the top of the scroll
     /// view bounds, even when bouncing.
@@ -36,6 +33,8 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
             layoutBackgroundView()
         }
     }
+    private var _backgroundView: UIView?
+    private var backgroundViewTopConstraint: NSLayoutConstraint?
     
     /// The content views that are displayed inside the stack view. This array
     /// does not include separator views that are automatically inserted by
@@ -43,9 +42,15 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     ///
     /// Setting this array causes all of the existing content views in the 
     /// stack view to be removed and replaced with the new content views.
-    public var contentViews = [UIView]() {
-        didSet { relayoutContent(true) }
+    public var contentViews: [UIView] {
+        get { return _contentViews }
+        set {
+            _contentViews = newValue
+            relayoutContent(true)
+        }
     }
+    private var _contentViews = [UIView]()
+    
     private var items = [Item]()
     public var separatorViewFactory: SeparatorViewFactory? {
         didSet { relayoutContent(false) }
@@ -110,7 +115,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     }
     
     private func layoutBackgroundView() {
-        guard let backgroundView = backgroundView else { return }
+        guard let backgroundView = _backgroundView else { return }
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.insertSubview(backgroundView, atIndex: 0)
         
@@ -168,6 +173,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
                     stackView.removeArrangedSubview(separatorView)
                     lastItem.separatorView = nil
                 }
+                stackInsertionIndex = indexOfArrangedSubview(lastItem.contentView)
             } else if index == items.endIndex {
                 // If a content view is being inserted at the end of the list, the
                 // item before it should have a separator added.
@@ -177,11 +183,9 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
                         stackView.addArrangedSubview(separatorView)
                     }
                 }
-            }
-            if let index = stackView.arrangedSubviews.indexOf({ $0 === lastItem.contentView}) {
-                stackInsertionIndex = index
+                stackInsertionIndex = stackView.arrangedSubviews.endIndex
             } else {
-                fatalError("The content view for \(lastItem) has been removed from the stack view")
+                stackInsertionIndex = indexOfArrangedSubview(items[index].contentView)
             }
         }
         
@@ -199,10 +203,18 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
             separatorView: separatorView
         )
         items.insert(item, atIndex: index)
-        contentViews.insert(view, atIndex: index)
+        _contentViews.insert(view, atIndex: index)
         stackView.insertArrangedSubview(view, atIndex: stackInsertionIndex)
         if let separatorView = separatorView {
             stackView.insertArrangedSubview(separatorView, atIndex: stackInsertionIndex.successor())
+        }
+    }
+    
+    private func indexOfArrangedSubview(subview: UIView) -> Int {
+        if let index = stackView.arrangedSubviews.indexOf({ $0 === subview }) {
+            return index
+        } else {
+            fatalError("Called indexOfArrangedSubview with subview that doesn't exist in stackView.arrangedSubviews")
         }
     }
     
@@ -213,7 +225,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
      - parameter view: The content view to remove
      */
     public func removeContentView(view: UIView) {
-        guard let index = contentViews.indexOf({ $0 === view }) else { return }
+        guard let index = _contentViews.indexOf({ $0 === view }) else { return }
         removeContentViewAtIndex(index)
     }
     
@@ -223,13 +235,23 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
      - parameter index: The index of the content view to remove
      */
     public func removeContentViewAtIndex(index: Int) {
+        precondition(index >= items.startIndex)
+        precondition(index < items.endIndex)
+        
         let item = items[index]
+        if items.count >= 1 && index == items.endIndex.predecessor() {
+            let previousItem = items[index.predecessor()]
+            if let separatorView = previousItem.separatorView {
+                stackView.removeArrangedSubview(separatorView)
+                previousItem.separatorView = nil
+            }
+        }
         stackView.removeArrangedSubview(item.contentView)
         if let separatorView = item.separatorView {
             stackView.removeArrangedSubview(separatorView)
         }
         items.removeAtIndex(index)
-        contentViews.removeAtIndex(index)
+        _contentViews.removeAtIndex(index)
     }
     
     /**
@@ -243,7 +265,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
      visibility.
      */
     public func setCanShowSeparator(canShowSeparator: Bool, forContentView view: UIView) {
-        guard let index = contentViews.indexOf({ $0 === view }) else { return }
+        guard let index = _contentViews.indexOf({ $0 === view }) else { return }
         setCanShowSeparator(canShowSeparator, forContentViewAtIndex: index)
     }
     
@@ -292,6 +314,8 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
             stackView.removeArrangedSubview($0)
             $0.removeFromSuperview()
         }
+        let contentViews = _contentViews
+        _contentViews.removeAll(keepCapacity: true)
         for (index, contentView) in contentViews.enumerate() {
             addContentView(contentView, canShowSeparator: canShowSeparator(index))
         }
