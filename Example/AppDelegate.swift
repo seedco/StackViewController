@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  StackViewController
+//  Example
 //
-//  Created by Indragie Karunaratne on 2016-04-11.
+//  Created by Indragie Karunaratne on 2016-04-16.
 //  Copyright © 2016 Seed Platform, Inc. All rights reserved.
 //
 
