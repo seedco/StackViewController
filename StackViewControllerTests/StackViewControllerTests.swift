@@ -13,13 +13,20 @@ class StackViewControllerTests: XCTestCase {
     private var stackViewController: StackViewController!
     
     private class TestViewController: UIViewController {
-        convenience init() {
-            self.init(nibName: nil, bundle: nil)
+        private let tag: Int
+        
+        init(tag: Int) {
+            self.tag = tag
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
         
         private override func loadView() {
             view = UIView(frame: CGRectZero)
-            view.tag = 1000
+            view.tag = tag
         }
     }
     
@@ -42,44 +49,44 @@ class StackViewControllerTests: XCTestCase {
     }
     
     func testAddViewController() {
-        let viewController = TestViewController()
+        let viewController = TestViewController(tag: 10)
         stackViewController.addItem(viewController)
         
-        XCTAssertEqual(1000, stackViewController.items[0].tag)
+        XCTAssertEqual(10, stackViewController.items[0].tag)
         XCTAssertEqual(1, stackViewController.childViewControllers.count)
         XCTAssertEqual(viewController, stackViewController.childViewControllers[0])
     }
     
     func testInsertView() {
-        stackViewController.addItem(TestViewController())
-        stackViewController.addItem(TestViewController())
+        stackViewController.addItem(TestViewController(tag: 10))
+        stackViewController.addItem(TestViewController(tag: 10))
         stackViewController.insertItem(createViewWithTag(1), atIndex: 1)
         
-        XCTAssertEqual([1000, 1, 1000], stackViewController.items.map { $0.tag })
+        XCTAssertEqual([10, 1, 10], stackViewController.items.map { $0.tag })
         XCTAssertEqual(3, stackViewController.childViewControllers.count)
     }
     
     func testInsertViewController() {
         stackViewController.addItem(createViewWithTag(1))
         stackViewController.addItem(createViewWithTag(2))
-        stackViewController.insertItem(TestViewController(), atIndex: 1)
+        stackViewController.insertItem(TestViewController(tag: 10), atIndex: 1)
         
-        XCTAssertEqual([1, 1000, 2], stackViewController.items.map { $0.tag })
+        XCTAssertEqual([1, 10, 2], stackViewController.items.map { $0.tag })
         XCTAssertEqual(3, stackViewController.childViewControllers.count)
     }
     
     func testRemoveViewAtIndex() {
         stackViewController.addItem(createViewWithTag(1))
-        stackViewController.addItem(TestViewController())
+        stackViewController.addItem(TestViewController(tag: 10))
         stackViewController.removeItemAtIndex(0)
         
-        XCTAssertEqual([1000], stackViewController.items.map { $0.tag })
+        XCTAssertEqual([10], stackViewController.items.map { $0.tag })
         XCTAssertEqual(1, stackViewController.childViewControllers.count)
     }
     
     func testRemoveViewControllerAtIndex() {
         stackViewController.addItem(createViewWithTag(1))
-        stackViewController.addItem(TestViewController())
+        stackViewController.addItem(TestViewController(tag: 10))
         stackViewController.removeItemAtIndex(1)
         
         XCTAssertEqual([1], stackViewController.items.map { $0.tag })
@@ -88,7 +95,7 @@ class StackViewControllerTests: XCTestCase {
     
     func testRemoveItemWithExistingItem() {
         stackViewController.addItem(createViewWithTag(1))
-        let viewController = TestViewController()
+        let viewController = TestViewController(tag: 10)
         stackViewController.addItem(viewController)
         stackViewController.removeItem(viewController)
         
@@ -98,10 +105,10 @@ class StackViewControllerTests: XCTestCase {
     
     func testRemoveItemWithNonexistentItem() {
         stackViewController.addItem(createViewWithTag(1))
-        stackViewController.addItem(TestViewController())
-        stackViewController.removeItem(TestViewController())
+        stackViewController.addItem(TestViewController(tag: 10))
+        stackViewController.removeItem(TestViewController(tag: 10))
         
-        XCTAssertEqual([1, 1000], stackViewController.items.map { $0.tag })
+        XCTAssertEqual([1, 10], stackViewController.items.map { $0.tag })
         XCTAssertEqual(2, stackViewController.childViewControllers.count)
     }
 }
