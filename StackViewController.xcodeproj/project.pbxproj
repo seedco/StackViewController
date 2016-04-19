@@ -146,8 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				72D193F21CC3576A00645F83 /* StackViewControllerTests.swift */,
-				72D193F41CC3576A00645F83 /* Info.plist */,
 				72D194221CC35CDC00645F83 /* StackViewContainerTests.swift */,
+				72D193F41CC3576A00645F83 /* Info.plist */,
 			);
 			path = StackViewControllerTests;
 			sourceTree = "<group>";
@@ -558,6 +558,7 @@
 				72D193F71CC3576A00645F83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		72D193F81CC3576A00645F83 /* Build configuration list for PBXNativeTarget "StackViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -566,6 +567,7 @@
 				72D193FA1CC3576A00645F83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		72D1941A1CC357A100645F83 /* Build configuration list for PBXNativeTarget "Example" */ = {
 			isa = XCConfigurationList;
@@ -574,6 +576,7 @@
 				72D1941C1CC357A100645F83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
