@@ -50,8 +50,8 @@ public class StackViewController: UIViewController {
      `StackViewContainer.setCanShowSeparator(:forContentViewAtIndex:)` for more
      details on this parameter.
      */
-    public func addItem(item: StackViewItem, canShowSeparator: Bool) {
-        insertItem(view, atIndex: items.endIndex, canShowSeparator: canShowSeparator)
+    public func addItem(item: StackViewItem, canShowSeparator: Bool = true) {
+        insertItem(item, atIndex: _items.endIndex, canShowSeparator: canShowSeparator)
     }
     
     /**
@@ -66,10 +66,10 @@ public class StackViewController: UIViewController {
      details on this parameter.
      */
     public func insertItem(item: StackViewItem, atIndex index: Int, canShowSeparator: Bool = true) {
-        precondition(index >= items.startIndex)
-        precondition(index <= items.endIndex)
+        precondition(index >= _items.startIndex)
+        precondition(index <= _items.endIndex)
         
-        items.insert(item, atIndex: index)
+        _items.insert(item, atIndex: index)
         let viewController = item.toViewController()
         viewControllers.insert(viewController, atIndex: index)
         addChildViewController(viewController)
@@ -83,7 +83,7 @@ public class StackViewController: UIViewController {
      - parameter item: The item to remove.
      */
     public func removeItem(item: StackViewItem) {
-        guard let index = items.indexOf({ $0 === item }) else { return }
+        guard let index = _items.indexOf({ $0 === item }) else { return }
         removeItemAtIndex(index)
     }
     
@@ -93,7 +93,7 @@ public class StackViewController: UIViewController {
      - parameter index: The index of the item to remove
      */
     public func removeItemAtIndex(index: Int) {
-        items.removeAtIndex(index)
+        _items.removeAtIndex(index)
         let viewController = viewControllers[index]
         viewController.willMoveToParentViewController(nil)
         stackViewContainer.removeContentViewAtIndex(index)
@@ -111,7 +111,7 @@ public class StackViewController: UIViewController {
      visibility
      */
     public func setCanShowSeparator(canShowSeparator: Bool, forItem item: StackViewItem) {
-        guard let index = items.indexOf({ $0 === item }) else { return }
+        guard let index = _items.indexOf({ $0 === item }) else { return }
         setCanShowSeparator(canShowSeparator, forItemAtIndex: index)
     }
     
