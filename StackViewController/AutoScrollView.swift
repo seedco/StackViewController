@@ -31,7 +31,6 @@ public class AutoScrollView: UIScrollView {
             }
             _contentView = newValue
             if let contentView = _contentView {
-                contentView.translatesAutoresizingMaskIntoConstraints = false
                 addSubview(contentView)
                 contentView.activateSuperviewHuggingConstraints()
             }

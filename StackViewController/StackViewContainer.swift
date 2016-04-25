@@ -94,9 +94,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     }
     
     private func commonInit() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.contentView = stackView
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.delegate = self
         scrollView.addSubview(stackView)
         addSubview(scrollView)
@@ -111,7 +109,6 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     
     private func layoutBackgroundView() {
         guard let backgroundView = _backgroundView else { return }
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.insertSubview(backgroundView, atIndex: 0)
         
         let constraints = backgroundView.activateSuperviewHuggingConstraints()
