@@ -2,7 +2,7 @@
 
 ### Overview
 
-`StackViewController` is a framework that simplifies the process of building forms and other static content using `UIStackView`.
+`StackViewController` is a Swift framework that simplifies the process of building forms and other static content using `UIStackView`.
 
 <p align="center">
 <img src="screenshot.png" width="290" height="594" alt="StackViewController Example App" />
