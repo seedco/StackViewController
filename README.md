@@ -10,7 +10,7 @@
 
 The purpose of this project is two-fold: encouraging design patterns that are more suitable for building content like the form pictured above, and providing tools to make the process simpler. The following sections contain a summary of the existing solutions and how we can improve upon them.
 
-#### Building Forms with `UITableView` (Is Bad)
+#### Building Forms with `UITableView` (Is Difficult)
 
 Traditionally, iOS developers have utilized `UITableView` to build forms and other relatively static list-based user interfaces, despite the `UITableView` API being a poor fit for such tasks. `UITableView` is designed primarily for dynamic content, and a lot of the functionality that it provides is *only necessary* for dynamic content. Using it to build static user interfaces results in a lot of boilerplate code in implementing many data source and delegate methods.
 
