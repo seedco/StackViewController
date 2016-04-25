@@ -4,22 +4,11 @@
 
 `StackViewController` is a framework that simplifies the process of building forms and other static content using `UIStackView`.
 
-The framework provides two primary classes: `StackViewContainer` and `StackViewController`. `StackViewContainer` wraps a `UIStackView` and implements the following additional features:
-
-* **Scrolling support** by embedding the `UIStackView` inside a `UIScrollView` with automatic management of associated constraints
-* **Autoscroll behaviour** to automatically adjust layout and scroll to the view being edited when the keyboard appears (the same behaviour implemented by `UITableViewController`)
-* **Customizable separator views** between content views that can be toggled on a per-view basis and are managed automatically when content views are inserted and removed
-* Other minor conveniences like support for background views and changing the background color (since `UIStackView` doesn't draw a background)
-
-`StackViewController` is a subclass of `UIViewController` that uses an instance of `StackViewContainer` as its view, and adds support for adding content using [view controller containment](https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html) (i.e. view controller composition). This means that you can use view controllers and/or views to represent your content instead of just views, and `StackViewController` automatically handles adding and removing them as child view controllers.
-
-### Example
-
 <img src="screenshot.png" width="375" height="667" alt="StackViewController Example App" />
 
-The included example app demonstrates the usage of both `StackViewContainer` on its own (the image attachment control) as well as `StackViewController` (the full form).
-
 ### Design Rationale
+
+The purpose of this project is two-fold: encouraging design patterns that are more suitable for building content like the form pictured above, and providing tools to make the process simpler. The following sections contain a summary of the existing solutions and how we can improve upon them.
 
 #### Building Forms with `UITableView` (Is Bad)
 
@@ -49,6 +38,19 @@ This principle has always been used in iOS view hierarchies, where more complex 
 
 In the same way that you can create complex layouts by composing multiple `UIStackView` instances, you can use the view controller containment API to compose multiple instances of `StackViewController` to create a hierarchy of view controllers where each content view is backed by a corresponding view controller that cleanly separates the responsibilities, instead of handling all of that at the view level (an anti-pattern, as mentioned earlier).
 
+### Features
 
+The framework provides two primary classes: `StackViewContainer` and `StackViewController`. `StackViewContainer` wraps a `UIStackView` and implements the following additional features:
+
+* **Scrolling support** by embedding the `UIStackView` inside a `UIScrollView` with automatic management of associated constraints
+* **Autoscroll behaviour** to automatically adjust layout and scroll to the view being edited when the keyboard appears (the same behaviour implemented by `UITableViewController`)
+* **Customizable separator views** between content views that can be toggled on a per-view basis and are managed automatically when content views are inserted and removed
+* Other minor conveniences like support for background views and changing the background color (since `UIStackView` doesn't draw a background)
+
+`StackViewController` is a subclass of `UIViewController` that uses an instance of `StackViewContainer` as its view, and adds support for adding content using [view controller containment](https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html) (i.e. view controller composition). This means that you can use view controllers and/or views to represent your content instead of just views, and `StackViewController` automatically handles adding and removing them as child view controllers.
+
+### Example
+
+The included example app, pictured above, demonstrates the usage of both `StackViewContainer` on its own (the image attachment control) as well as `StackViewController` (the full form).
 
 
