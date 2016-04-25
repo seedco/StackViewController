@@ -1,5 +1,5 @@
 //
-//  UIView+Seed.swift
+//  UIViewExtensions.swift
 //  StackViewController
 //
 //  Created by Indragie Karunaratne on 2016-04-24.
