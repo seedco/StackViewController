@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     init() {
         stackViewController = StackViewController()
+        stackViewController.stackViewContainer.separatorViewFactory = SeparatorView.init
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,5 +28,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stackViewController.addItem(LabeledTextField(labelText: "To:"))
+        stackViewController.addItem(LabeledTextField(labelText: "Subject:"))
+        
+        addChildViewController(stackViewController)
+        view.addSubview(stackViewController.view)
+        stackViewController.view.activateSuperviewHuggingConstraints()
+        stackViewController.didMoveToParentViewController(self)
     }
 }
