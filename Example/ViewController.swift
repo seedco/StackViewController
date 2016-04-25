@@ -12,12 +12,17 @@ import StackViewController
 class ViewController: UIViewController {
     private let stackViewController: StackViewController
     private var firstField: UIView?
+    private var bodyTextView: UITextView?
     
     init() {
         stackViewController = StackViewController()
         stackViewController.stackViewContainer.separatorViewFactory = SeparatorView.init
+        
         super.init(nibName: nil, bundle: nil)
+        
         edgesForExtendedLayout = .None
+        title = "Send Message"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .Done, target: self, action: #selector(ViewController.send(_:)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,6 +31,7 @@ class ViewController: UIViewController {
     
     override func loadView() {
         view = UIView(frame: CGRectZero)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.didTapView)))
     }
 
     override func viewDidLoad() {
@@ -39,6 +45,16 @@ class ViewController: UIViewController {
         firstField = toFieldController.view
         stackViewController.addItem(toFieldController)
         stackViewController.addItem(LabeledTextFieldController(labelText: "Subject:"))
+        
+        let textView = UITextView(frame: CGRectZero)
+        textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        textView.scrollEnabled = false
+        textView.textContainerInset = UIEdgeInsets(top: 15, left: 10, bottom: 0, right: 10)
+        textView.text = "This field automatically expands as you type, no additional logic required"
+        stackViewController.addItem(textView, canShowSeparator: false)
+        bodyTextView = textView
+        
+        stackViewController.addItem(ImageAttachmentViewController())
     }
     
     private func displayStackViewController() {
@@ -51,5 +67,13 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         firstField?.becomeFirstResponder()
+    }
+    
+    // MARK: Actions
+    
+    @objc private func send(sender: UIBarButtonItem) {}
+    
+    @objc private func didTapView(gestureRecognizer: UIGestureRecognizer) {
+        bodyTextView?.becomeFirstResponder()
     }
 }

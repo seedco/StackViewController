@@ -23,8 +23,12 @@
 		72D1941E1CC357A800645F83 /* StackViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 72D193E41CC3576A00645F83 /* StackViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72D194231CC35CDC00645F83 /* StackViewContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D194221CC35CDC00645F83 /* StackViewContainerTests.swift */; };
 		72DE371F1CCDA961009CAE32 /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE371E1CCDA961009CAE32 /* LabeledTextField.swift */; };
-		72DE37211CCDABA8009CAE32 /* UIView+Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37201CCDABA8009CAE32 /* UIView+Seed.swift */; };
+		72DE37211CCDABA8009CAE32 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37201CCDABA8009CAE32 /* UIViewExtensions.swift */; };
 		72DE37231CCDB9AE009CAE32 /* LabeledTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37221CCDB9AE009CAE32 /* LabeledTextFieldController.swift */; };
+		72DE37251CCDC75D009CAE32 /* ImageAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37241CCDC75D009CAE32 /* ImageAttachmentView.swift */; };
+		72DE37271CCDC769009CAE32 /* ImageAttachmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37261CCDC769009CAE32 /* ImageAttachmentViewController.swift */; };
+		72DE37291CCDCCB6009CAE32 /* UIStackViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37281CCDCCB6009CAE32 /* UIStackViewExtensions.swift */; };
+		72DE372B1CCDD998009CAE32 /* ImageThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE372A1CCDD998009CAE32 /* ImageThumbnailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,8 +82,12 @@
 		72D194191CC357A100645F83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72D194221CC35CDC00645F83 /* StackViewContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewContainerTests.swift; sourceTree = "<group>"; };
 		72DE371E1CCDA961009CAE32 /* LabeledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledTextField.swift; sourceTree = "<group>"; };
-		72DE37201CCDABA8009CAE32 /* UIView+Seed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Seed.swift"; sourceTree = "<group>"; };
+		72DE37201CCDABA8009CAE32 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		72DE37221CCDB9AE009CAE32 /* LabeledTextFieldController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledTextFieldController.swift; sourceTree = "<group>"; };
+		72DE37241CCDC75D009CAE32 /* ImageAttachmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAttachmentView.swift; sourceTree = "<group>"; };
+		72DE37261CCDC769009CAE32 /* ImageAttachmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAttachmentViewController.swift; sourceTree = "<group>"; };
+		72DE37281CCDCCB6009CAE32 /* UIStackViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackViewExtensions.swift; sourceTree = "<group>"; };
+		72DE372A1CCDD998009CAE32 /* ImageThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageThumbnailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +147,8 @@
 				72D193FF1CC3577B00645F83 /* StackViewController.swift */,
 				72D194001CC3577B00645F83 /* StackViewItem.swift */,
 				72D193E81CC3576A00645F83 /* Info.plist */,
-				72DE37201CCDABA8009CAE32 /* UIView+Seed.swift */,
+				72DE37201CCDABA8009CAE32 /* UIViewExtensions.swift */,
+				72DE37281CCDCCB6009CAE32 /* UIStackViewExtensions.swift */,
 			);
 			path = StackViewController;
 			sourceTree = "<group>";
@@ -164,6 +173,9 @@
 				72D194191CC357A100645F83 /* Info.plist */,
 				72DE371E1CCDA961009CAE32 /* LabeledTextField.swift */,
 				72DE37221CCDB9AE009CAE32 /* LabeledTextFieldController.swift */,
+				72DE37241CCDC75D009CAE32 /* ImageAttachmentView.swift */,
+				72DE37261CCDC769009CAE32 /* ImageAttachmentViewController.swift */,
+				72DE372A1CCDD998009CAE32 /* ImageThumbnailView.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -309,8 +321,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72DE37211CCDABA8009CAE32 /* UIView+Seed.swift in Sources */,
+				72DE37211CCDABA8009CAE32 /* UIViewExtensions.swift in Sources */,
 				72D194031CC3577B00645F83 /* SeparatorView.swift in Sources */,
+				72DE37291CCDCCB6009CAE32 /* UIStackViewExtensions.swift in Sources */,
 				72D194061CC3577B00645F83 /* StackViewItem.swift in Sources */,
 				72D194051CC3577B00645F83 /* StackViewController.swift in Sources */,
 				72D194011CC3577B00645F83 /* AutoScrollView.swift in Sources */,
@@ -333,7 +346,10 @@
 			files = (
 				72D194101CC357A100645F83 /* ViewController.swift in Sources */,
 				72D1940E1CC357A100645F83 /* AppDelegate.swift in Sources */,
+				72DE372B1CCDD998009CAE32 /* ImageThumbnailView.swift in Sources */,
 				72DE37231CCDB9AE009CAE32 /* LabeledTextFieldController.swift in Sources */,
+				72DE37271CCDC769009CAE32 /* ImageAttachmentViewController.swift in Sources */,
+				72DE37251CCDC75D009CAE32 /* ImageAttachmentView.swift in Sources */,
 				72DE371F1CCDA961009CAE32 /* LabeledTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

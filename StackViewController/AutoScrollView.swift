@@ -32,8 +32,29 @@ public class AutoScrollView: UIScrollView {
             _contentView = newValue
             if let contentView = _contentView {
                 addSubview(contentView)
-                contentView.activateSuperviewHuggingConstraints()
+                updateContentViewConstraints()
             }
+        }
+    }
+    private var contentViewConstraints: [NSLayoutConstraint]?
+    
+    override public var contentInset: UIEdgeInsets {
+        get { return _contentInset }
+        set {
+            _contentInset = newValue
+            updateContentViewConstraints()
+        }
+    }
+    private var _contentInset = UIEdgeInsetsZero
+    
+    private func updateContentViewConstraints() {
+        if let constraints = contentViewConstraints {
+            NSLayoutConstraint.deactivateConstraints(constraints)
+        }
+        if let contentView = contentView {
+            contentViewConstraints = contentView.activateSuperviewHuggingConstraints(insets: _contentInset)
+        } else {
+            contentViewConstraints = nil
         }
     }
     
@@ -71,7 +92,7 @@ public class AutoScrollView: UIScrollView {
         if !keyboardIntersectionRect.isNull {
             bottomInset = keyboardIntersectionRect.height
             let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
-            self.contentInset = contentInset
+            super.contentInset = contentInset
             scrollIndicatorInsets = contentInset
         } else {
             bottomInset = 0.0
@@ -99,7 +120,7 @@ public class AutoScrollView: UIScrollView {
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
-        contentInset = UIEdgeInsetsZero
+        super.contentInset = UIEdgeInsetsZero
         scrollIndicatorInsets = UIEdgeInsetsZero
     }
 }

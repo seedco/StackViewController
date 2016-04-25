@@ -63,9 +63,11 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
         get { return stackView.axis }
         set {
             stackView.axis = newValue
+            updateSizeConstraint()
             relayoutContent(false)
         }
     }
+    private var stackViewSizeConstraint: NSLayoutConstraint?
     
     public typealias SeparatorViewFactory = UILayoutConstraintAxis -> UIView
     
@@ -78,8 +80,10 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     }
     
     /// Initializes an instance of `StackViewContainer` using an existing
-    /// instance of `UIStackView`.
+    /// instance of `UIStackView`. Any existing arranged subviews of the stack
+    /// view are removed prior to `StackViewContainer` taking ownership of it.
     public init(stackView: UIStackView) {
+        stackView.removeAllArrangedSubviews()
         self.stackView = stackView
         self.scrollView = AutoScrollView(frame: CGRectZero)
         super.init(frame: CGRectZero)
@@ -96,15 +100,22 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     private func commonInit() {
         scrollView.contentView = stackView
         scrollView.delegate = self
-        scrollView.addSubview(stackView)
         addSubview(scrollView)
-        
-        stackView.activateSuperviewHuggingConstraints()
         scrollView.activateSuperviewHuggingConstraints()
-        
-        let widthConstraint =
-            NSLayoutConstraint(item: stackView, attribute: .Width, relatedBy: .Equal, toItem: scrollView, attribute: .Width, multiplier: 1.0, constant: 0.0)
-        widthConstraint.active = true
+        updateSizeConstraint()
+    }
+    
+    private func updateSizeConstraint() {
+        stackViewSizeConstraint?.active = false
+        let attribute: NSLayoutAttribute = {
+            switch axis {
+            case .Horizontal: return .Height
+            case .Vertical: return .Width
+            }
+        }()
+        stackViewSizeConstraint =
+            NSLayoutConstraint(item: stackView, attribute: attribute, relatedBy: .Equal, toItem: scrollView, attribute: attribute, multiplier: 1.0, constant: 0.0)
+        stackViewSizeConstraint?.active = true
     }
     
     private func layoutBackgroundView() {
@@ -301,10 +312,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
             }
         }
         items.removeAll(keepCapacity: true)
-        stackView.arrangedSubviews.forEach {
-            stackView.removeArrangedSubview($0)
-            $0.removeFromSuperview()
-        }
+        stackView.removeAllArrangedSubviews()
         let contentViews = _contentViews
         _contentViews.removeAll(keepCapacity: true)
         for (index, contentView) in contentViews.enumerate() {
