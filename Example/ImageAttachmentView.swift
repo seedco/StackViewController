@@ -9,7 +9,7 @@
 import UIKit
 import StackViewController
 
-class ImageAttachmentView: UIView {
+class ImageAttachmentView: UIView, ImageThumbnailViewDelegate {
     private struct Layout {
         static let ContainerInsets = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
         static let ScrollViewInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
@@ -48,6 +48,13 @@ class ImageAttachmentView: UIView {
     
     func addImageWithThumbnail(thumbnail: UIImage) {
         let thumbnailView = ImageThumbnailView(thumbnail: thumbnail)
+        thumbnailView.delegate = self
         stackViewContainer.addContentView(thumbnailView)
+    }
+    
+    // MARK: ImageThumbnailViewDelegate
+    
+    func imageThumbnailViewDidTapDeleteButton(view: ImageThumbnailView) {
+        stackViewContainer.removeContentView(view)
     }
 }

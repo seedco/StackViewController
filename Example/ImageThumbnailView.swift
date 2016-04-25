@@ -9,20 +9,25 @@
 import UIKit
 import StackViewController
 
+protocol ImageThumbnailViewDelegate: AnyObject {
+    func imageThumbnailViewDidTapDeleteButton(view: ImageThumbnailView)
+}
+
 public class ImageThumbnailView: UIView {
     private struct Appearance {
         static let ImageCornerRadius: CGFloat = 8.0
     }
     
-    let deleteButton: UIButton
+    weak var delegate: ImageThumbnailViewDelegate?
     
     init(thumbnail: UIImage) {
+        super.init(frame: CGRectZero)
+        
         let deleteButtonImage = UIImage(named: "delete-button")!
-        deleteButton = UIButton(type: .Custom)
+        let deleteButton = UIButton(type: .Custom)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.setBackgroundImage(deleteButtonImage, forState: .Normal)
-        
-        super.init(frame: CGRectZero)
+        deleteButton.addTarget(self, action: #selector(ImageThumbnailView.didTapDelete(_:)), forControlEvents: .TouchUpInside)
         
         let imageView = UIImageView(image: thumbnail)
         imageView.layer.cornerRadius = Appearance.ImageCornerRadius
@@ -47,5 +52,11 @@ public class ImageThumbnailView: UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Actions
+    
+    @objc private func didTapDelete(sender: UIButton) {
+        delegate?.imageThumbnailViewDidTapDeleteButton(self)
     }
 }
