@@ -2,9 +2,11 @@
 
 ### Overview
 
-`StackViewController` is a framework that simplifies the process of building forms and other static content using `UIStackView`.
+`StackViewController` is a Swift framework that simplifies the process of building forms and other static content using `UIStackView`.
 
-<img src="screenshot.png" width="375" height="667" alt="StackViewController Example App" />
+<p align="center">
+<img src="screenshot.png" width="290" height="594" alt="StackViewController Example App" />
+</p>
 
 ### Design Rationale
 
@@ -53,4 +55,6 @@ The framework provides two primary classes: `StackViewContainer` and `StackViewC
 
 The included example app, pictured above, demonstrates the usage of both `StackViewContainer` on its own (the image attachment control) as well as `StackViewController` (the full form).
 
+### License
 
+This project is licensed under the MIT license. See `LICENSE.md` for more details.
