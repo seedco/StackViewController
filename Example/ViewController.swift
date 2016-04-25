@@ -17,8 +17,11 @@ class ViewController: UIViewController {
     init() {
         stackViewController = StackViewController()
         stackViewController.stackViewContainer.separatorViewFactory = SeparatorView.init
+        
         super.init(nibName: nil, bundle: nil)
+        
         edgesForExtendedLayout = .None
+        title = "Send Message"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,7 +53,7 @@ class ViewController: UIViewController {
         stackViewController.addItem(textView)
         bodyTextView = textView
         
-        stackViewController.addItem(ImageAttachmentViewController(nibName: nil, bundle: nil))
+        stackViewController.addItem(ImageAttachmentViewController())
     }
     
     private func displayStackViewController() {

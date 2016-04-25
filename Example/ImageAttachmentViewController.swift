@@ -16,6 +16,10 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
     
     private var attachmentView: ImageAttachmentView?
     
+    convenience init() {
+        self.init(nibName: nil, bundle: nil)
+    }
+    
     override func loadView() {
         let attachmentView = ImageAttachmentView(frame: CGRectZero)
         attachmentView.attachButton.addTarget(self, action: #selector(ImageAttachmentViewController.attachImage(_:)), forControlEvents: .TouchUpInside)
