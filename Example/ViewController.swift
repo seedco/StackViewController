@@ -11,7 +11,7 @@ import StackViewController
 
 class ViewController: UIViewController {
     private let stackViewController: StackViewController
-    private var firstField: LabeledTextField!
+    private var firstField: UIView?
     
     init() {
         stackViewController = StackViewController()
@@ -30,11 +30,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        firstField = LabeledTextField(labelText: "To:")
-        stackViewController.addItem(firstField)
-        stackViewController.addItem(LabeledTextField(labelText: "Subject:"))
-        
+        setupStackViewController()
+        displayStackViewController()
+    }
+    
+    private func setupStackViewController() {
+        let toFieldController = LabeledTextFieldController(labelText: "To:")
+        firstField = toFieldController.view
+        stackViewController.addItem(toFieldController)
+        stackViewController.addItem(LabeledTextFieldController(labelText: "Subject:"))
+    }
+    
+    private func displayStackViewController() {
         addChildViewController(stackViewController)
         view.addSubview(stackViewController.view)
         stackViewController.view.activateSuperviewHuggingConstraints()
@@ -43,6 +50,6 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        firstField.textField.becomeFirstResponder()
+        firstField?.becomeFirstResponder()
     }
 }
