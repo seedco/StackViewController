@@ -45,10 +45,12 @@ class ViewController: UIViewController {
         let textView = UITextView(frame: CGRectZero)
         textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         textView.scrollEnabled = false
-        textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        textView.textContainerInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
         textView.text = "This field automatically expands as you type, no additional logic required"
         stackViewController.addItem(textView)
         bodyTextView = textView
+        
+        stackViewController.addItem(ImageAttachmentViewController(nibName: nil, bundle: nil))
     }
     
     private func displayStackViewController() {
