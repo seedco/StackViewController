@@ -18,11 +18,11 @@ class LabeledTextField: UIView {
     
     private struct Layout {
         static let EdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-        static let StackViewSpacing: CGFloat = 15
+        static let StackViewSpacing: CGFloat = 10
     }
     
-    private let label: UILabel
-    private let textField: UITextField
+    let label: UILabel
+    let textField: UITextField
     
     init(labelText: String) {
         label = UILabel(frame: CGRectZero)
