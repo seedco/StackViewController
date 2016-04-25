@@ -12,6 +12,7 @@ import StackViewController
 class ViewController: UIViewController {
     private let stackViewController: StackViewController
     private var firstField: UIView?
+    private var bodyTextView: UITextView?
     
     init() {
         stackViewController = StackViewController()
@@ -26,6 +27,7 @@ class ViewController: UIViewController {
     
     override func loadView() {
         view = UIView(frame: CGRectZero)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.didTapView)))
     }
 
     override func viewDidLoad() {
@@ -39,6 +41,13 @@ class ViewController: UIViewController {
         firstField = toFieldController.view
         stackViewController.addItem(toFieldController)
         stackViewController.addItem(LabeledTextFieldController(labelText: "Subject:"))
+        
+        let textView = UITextView(frame: CGRectZero)
+        textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        textView.scrollEnabled = false
+        textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        stackViewController.addItem(textView)
+        bodyTextView = textView
     }
     
     private func displayStackViewController() {
@@ -51,5 +60,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         firstField?.becomeFirstResponder()
+    }
+    
+    @objc private func didTapView(gestureRecognizer: UIGestureRecognizer) {
+        bodyTextView?.becomeFirstResponder()
     }
 }
