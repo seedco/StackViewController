@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         
         edgesForExtendedLayout = .None
         title = "Send Message"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .Done, target: self, action: #selector(ViewController.send(_:)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,6 +68,10 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         firstField?.becomeFirstResponder()
     }
+    
+    // MARK: Actions
+    
+    @objc private func send(sender: UIBarButtonItem) {}
     
     @objc private func didTapView(gestureRecognizer: UIGestureRecognizer) {
         bodyTextView?.becomeFirstResponder()
