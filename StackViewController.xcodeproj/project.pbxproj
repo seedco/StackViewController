@@ -11,19 +11,20 @@
 		72D193EE1CC3576A00645F83 /* StackViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D193E41CC3576A00645F83 /* StackViewController.framework */; };
 		72D193F31CC3576A00645F83 /* StackViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D193F21CC3576A00645F83 /* StackViewControllerTests.swift */; };
 		72D194011CC3577B00645F83 /* AutoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D193FB1CC3577B00645F83 /* AutoScrollView.swift */; };
-		72D194021CC3577B00645F83 /* NSLayoutConstraint+Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D193FC1CC3577B00645F83 /* NSLayoutConstraint+Seed.swift */; };
 		72D194031CC3577B00645F83 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D193FD1CC3577B00645F83 /* SeparatorView.swift */; };
 		72D194041CC3577B00645F83 /* StackViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D193FE1CC3577B00645F83 /* StackViewContainer.swift */; };
 		72D194051CC3577B00645F83 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D193FF1CC3577B00645F83 /* StackViewController.swift */; };
 		72D194061CC3577B00645F83 /* StackViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D194001CC3577B00645F83 /* StackViewItem.swift */; };
 		72D1940E1CC357A100645F83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D1940D1CC357A100645F83 /* AppDelegate.swift */; };
 		72D194101CC357A100645F83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D1940F1CC357A100645F83 /* ViewController.swift */; };
-		72D194131CC357A100645F83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72D194111CC357A100645F83 /* Main.storyboard */; };
 		72D194151CC357A100645F83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72D194141CC357A100645F83 /* Assets.xcassets */; };
 		72D194181CC357A100645F83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72D194161CC357A100645F83 /* LaunchScreen.storyboard */; };
 		72D1941D1CC357A800645F83 /* StackViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D193E41CC3576A00645F83 /* StackViewController.framework */; };
 		72D1941E1CC357A800645F83 /* StackViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 72D193E41CC3576A00645F83 /* StackViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72D194231CC35CDC00645F83 /* StackViewContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D194221CC35CDC00645F83 /* StackViewContainerTests.swift */; };
+		72DE371F1CCDA961009CAE32 /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE371E1CCDA961009CAE32 /* LabeledTextField.swift */; };
+		72DE37211CCDABA8009CAE32 /* UIView+Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37201CCDABA8009CAE32 /* UIView+Seed.swift */; };
+		72DE37231CCDB9AE009CAE32 /* LabeledTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DE37221CCDB9AE009CAE32 /* LabeledTextFieldController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,6 @@
 		72D193F21CC3576A00645F83 /* StackViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewControllerTests.swift; sourceTree = "<group>"; };
 		72D193F41CC3576A00645F83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72D193FB1CC3577B00645F83 /* AutoScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollView.swift; sourceTree = "<group>"; };
-		72D193FC1CC3577B00645F83 /* NSLayoutConstraint+Seed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Seed.swift"; sourceTree = "<group>"; };
 		72D193FD1CC3577B00645F83 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		72D193FE1CC3577B00645F83 /* StackViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewContainer.swift; sourceTree = "<group>"; };
 		72D193FF1CC3577B00645F83 /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
@@ -73,11 +73,13 @@
 		72D1940B1CC357A100645F83 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72D1940D1CC357A100645F83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72D1940F1CC357A100645F83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		72D194121CC357A100645F83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		72D194141CC357A100645F83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72D194171CC357A100645F83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72D194191CC357A100645F83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72D194221CC35CDC00645F83 /* StackViewContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewContainerTests.swift; sourceTree = "<group>"; };
+		72DE371E1CCDA961009CAE32 /* LabeledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledTextField.swift; sourceTree = "<group>"; };
+		72DE37201CCDABA8009CAE32 /* UIView+Seed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Seed.swift"; sourceTree = "<group>"; };
+		72DE37221CCDB9AE009CAE32 /* LabeledTextFieldController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledTextFieldController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,12 +134,12 @@
 			children = (
 				72D193E61CC3576A00645F83 /* StackViewController.h */,
 				72D193FB1CC3577B00645F83 /* AutoScrollView.swift */,
-				72D193FC1CC3577B00645F83 /* NSLayoutConstraint+Seed.swift */,
 				72D193FD1CC3577B00645F83 /* SeparatorView.swift */,
 				72D193FE1CC3577B00645F83 /* StackViewContainer.swift */,
 				72D193FF1CC3577B00645F83 /* StackViewController.swift */,
 				72D194001CC3577B00645F83 /* StackViewItem.swift */,
 				72D193E81CC3576A00645F83 /* Info.plist */,
+				72DE37201CCDABA8009CAE32 /* UIView+Seed.swift */,
 			);
 			path = StackViewController;
 			sourceTree = "<group>";
@@ -157,10 +159,11 @@
 			children = (
 				72D1940D1CC357A100645F83 /* AppDelegate.swift */,
 				72D1940F1CC357A100645F83 /* ViewController.swift */,
-				72D194111CC357A100645F83 /* Main.storyboard */,
 				72D194141CC357A100645F83 /* Assets.xcassets */,
 				72D194161CC357A100645F83 /* LaunchScreen.storyboard */,
 				72D194191CC357A100645F83 /* Info.plist */,
+				72DE371E1CCDA961009CAE32 /* LabeledTextField.swift */,
+				72DE37221CCDB9AE009CAE32 /* LabeledTextFieldController.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -242,7 +245,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Indragie Karunaratne";
+				ORGANIZATIONNAME = "Seed Platform, Inc";
 				TargetAttributes = {
 					72D193E31CC3576A00645F83 = {
 						CreatedOnToolsVersion = 7.3;
@@ -296,7 +299,6 @@
 			files = (
 				72D194181CC357A100645F83 /* LaunchScreen.storyboard in Resources */,
 				72D194151CC357A100645F83 /* Assets.xcassets in Resources */,
-				72D194131CC357A100645F83 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,8 +309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72DE37211CCDABA8009CAE32 /* UIView+Seed.swift in Sources */,
 				72D194031CC3577B00645F83 /* SeparatorView.swift in Sources */,
-				72D194021CC3577B00645F83 /* NSLayoutConstraint+Seed.swift in Sources */,
 				72D194061CC3577B00645F83 /* StackViewItem.swift in Sources */,
 				72D194051CC3577B00645F83 /* StackViewController.swift in Sources */,
 				72D194011CC3577B00645F83 /* AutoScrollView.swift in Sources */,
@@ -331,6 +333,8 @@
 			files = (
 				72D194101CC357A100645F83 /* ViewController.swift in Sources */,
 				72D1940E1CC357A100645F83 /* AppDelegate.swift in Sources */,
+				72DE37231CCDB9AE009CAE32 /* LabeledTextFieldController.swift in Sources */,
+				72DE371F1CCDA961009CAE32 /* LabeledTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,14 +354,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		72D194111CC357A100645F83 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				72D194121CC357A100645F83 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		72D194161CC357A100645F83 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

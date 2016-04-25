@@ -39,7 +39,7 @@ public class SeparatorView: UIView {
     }
     
     /// Initializes the receiver for display on the specified axis.
-    init(axis: UILayoutConstraintAxis) {
+    public init(axis: UILayoutConstraintAxis) {
         self.axis = axis
         super.init(frame: CGRectZero)
         commonInit()

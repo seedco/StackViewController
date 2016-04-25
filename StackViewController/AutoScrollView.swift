@@ -31,10 +31,8 @@ public class AutoScrollView: UIScrollView {
             }
             _contentView = newValue
             if let contentView = _contentView {
-                contentView.translatesAutoresizingMaskIntoConstraints = false
                 addSubview(contentView)
-                let constraints = NSLayoutConstraint.superviewHuggingConstraintsForView(contentView)
-                NSLayoutConstraint.activateConstraints(constraints)
+                contentView.activateSuperviewHuggingConstraints()
             }
         }
     }
@@ -64,18 +62,26 @@ public class AutoScrollView: UIScrollView {
     // Implementation based on code from Apple documentation
     // https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
     @objc private func keyboardWillShow(notification: NSNotification) {
-        let keyboardFrameValue = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue
-        guard let keyboardSize = keyboardFrameValue?.CGRectValue().size else { return }
+        let keyboardFrameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        guard var keyboardFrame = keyboardFrameValue?.CGRectValue() else { return }
+        keyboardFrame = convertRect(keyboardFrame, fromView: nil)
         
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-        self.contentInset = contentInset
-        scrollIndicatorInsets = contentInset
+        let bottomInset: CGFloat
+        let keyboardIntersectionRect = bounds.intersect(keyboardFrame)
+        if !keyboardIntersectionRect.isNull {
+            bottomInset = keyboardIntersectionRect.height
+            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
+            self.contentInset = contentInset
+            scrollIndicatorInsets = contentInset
+        } else {
+            bottomInset = 0.0
+        }
         
         guard let firstResponder = firstResponder else { return }
         let firstResponderFrame = firstResponder.convertRect(firstResponder.bounds, toView: self)
         
         var contentBounds = CGRect(origin: contentOffset, size: bounds.size)
-        contentBounds.size.height -= keyboardSize.height
+        contentBounds.size.height -= bottomInset
         if !contentBounds.contains(firstResponderFrame.origin) {
             let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval ?? Constants.DefaultAnimationDuration
             let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UIViewAnimationCurve ?? Constants.DefaultAnimationCurve

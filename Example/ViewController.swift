@@ -7,19 +7,49 @@
 //
 
 import UIKit
+import StackViewController
 
 class ViewController: UIViewController {
+    private let stackViewController: StackViewController
+    private var firstField: UIView?
+    
+    init() {
+        stackViewController = StackViewController()
+        stackViewController.stackViewContainer.separatorViewFactory = SeparatorView.init
+        super.init(nibName: nil, bundle: nil)
+        edgesForExtendedLayout = .None
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = UIView(frame: CGRectZero)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        setupStackViewController()
+        displayStackViewController()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    private func setupStackViewController() {
+        let toFieldController = LabeledTextFieldController(labelText: "To:")
+        firstField = toFieldController.view
+        stackViewController.addItem(toFieldController)
+        stackViewController.addItem(LabeledTextFieldController(labelText: "Subject:"))
     }
-
-
+    
+    private func displayStackViewController() {
+        addChildViewController(stackViewController)
+        view.addSubview(stackViewController.view)
+        stackViewController.view.activateSuperviewHuggingConstraints()
+        stackViewController.didMoveToParentViewController(self)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        firstField?.becomeFirstResponder()
+    }
 }
-

@@ -94,20 +94,13 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     }
     
     private func commonInit() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.contentView = stackView
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.delegate = self
         scrollView.addSubview(stackView)
         addSubview(scrollView)
         
-        let stackViewConstraints =
-            NSLayoutConstraint.superviewHuggingConstraintsForView(stackView)
-        NSLayoutConstraint.activateConstraints(stackViewConstraints)
-        
-        let scrollViewConstraints =
-            NSLayoutConstraint.superviewHuggingConstraintsForView(scrollView)
-        NSLayoutConstraint.activateConstraints(scrollViewConstraints)
+        stackView.activateSuperviewHuggingConstraints()
+        scrollView.activateSuperviewHuggingConstraints()
         
         let widthConstraint =
             NSLayoutConstraint(item: stackView, attribute: .Width, relatedBy: .Equal, toItem: scrollView, attribute: .Width, multiplier: 1.0, constant: 0.0)
@@ -116,11 +109,9 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     
     private func layoutBackgroundView() {
         guard let backgroundView = _backgroundView else { return }
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.insertSubview(backgroundView, atIndex: 0)
         
-        let constraints =
-            NSLayoutConstraint.superviewHuggingConstraintsForView(backgroundView)
+        let constraints = backgroundView.activateSuperviewHuggingConstraints()
         for constraint in constraints {
             if constraint.firstAttribute == .Top {
                 backgroundViewTopConstraint = constraint
