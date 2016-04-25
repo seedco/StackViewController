@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         stackViewController = StackViewController()
         stackViewController.stackViewContainer.separatorViewFactory = SeparatorView.init
         super.init(nibName: nil, bundle: nil)
+        edgesForExtendedLayout = .None
     }
     
     required init?(coder aDecoder: NSCoder) {
