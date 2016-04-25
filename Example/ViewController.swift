@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         textView.scrollEnabled = false
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        textView.text = "This field automatically expands as you type, no additional logic required"
         stackViewController.addItem(textView)
         bodyTextView = textView
     }
