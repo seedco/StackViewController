@@ -53,4 +53,6 @@ The framework provides two primary classes: `StackViewContainer` and `StackViewC
 
 The included example app, pictured above, demonstrates the usage of both `StackViewContainer` on its own (the image attachment control) as well as `StackViewController` (the full form).
 
+### License
 
+This project is licensed under the MIT license. See `LICENSE.md` for more details.
