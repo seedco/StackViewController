@@ -13,6 +13,12 @@ The framework provides two primary classes: `StackViewContainer` and `StackViewC
 
 `StackViewController` is a subclass of `UIViewController` that uses an instance of `StackViewContainer` as its view, and adds support for adding content using [view controller containment](https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html) (i.e. view controller composition). This means that you can use view controllers and/or views to represent your content instead of just views, and `StackViewController` automatically handles adding and removing them as child view controllers.
 
+### Example
+
+<img src="screenshot.png" width="375" height="667" alt="StackViewController Example App" />
+
+The included example app demonstrates the usage of both `StackViewContainer` on its own (the image attachment control) as well as `StackViewController` (the full form).
+
 ### Design Rationale
 
 #### Building Forms with `UITableView` (Is Bad)
