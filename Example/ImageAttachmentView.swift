@@ -45,4 +45,9 @@ class ImageAttachmentView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func addImageWithThumbnail(thumbnail: UIImage) {
+        let thumbnailView = ImageThumbnailView(thumbnail: thumbnail)
+        stackViewContainer.addContentView(thumbnailView)
+    }
 }
