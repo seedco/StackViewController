@@ -1,0 +1,11 @@
+machine:
+  xcode:
+    version: 7.3
+
+dependencies:
+  override:
+    - sudo -H gem install xcpretty
+  
+test:
+  override:
+    - make clean test
