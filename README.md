@@ -1,8 +1,9 @@
 # StackViewController
+[![Circle CI](https://circleci.com/gh/seedco/StackViewController/tree/master.svg?style=svg)](https://circleci.com/gh/seedco/StackViewController/tree/master)
 
 ### Overview
 
-`StackViewController` is a Swift framework that simplifies the process of building forms and other static content using `UIStackView`.
+`StackViewController` is a Swift framework that simplifies the process of building forms and other static content using `UIStackView`. For example, the form below is implemented using a StackViewController:
 
 <p align="center">
 <img src="screenshot.png" width="290" height="594" alt="StackViewController Example App" />
