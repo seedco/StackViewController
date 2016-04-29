@@ -17,20 +17,17 @@ public class AutoScrollView: UIScrollView {
         static let DefaultAnimationCurve = UIViewAnimationCurve.EaseInOut
         static let ScrollAnimationID = "AutoscrollAnimation"
     }
-    private var _contentView: UIView?
     
     /// The content view to display inside the container view. Views can also
     /// be added directly to this view without using the `contentView` property,
     /// but it simply makes it more convenient for the common case where your
     /// content fills the bounds of the scroll view.
     public var contentView: UIView? {
-        get { return _contentView }
-        set {
-            if let contentView = _contentView {
-                contentView.removeFromSuperview()
-            }
-            _contentView = newValue
-            if let contentView = _contentView {
+        willSet {
+            contentView?.removeFromSuperview()
+        }
+        didSet {
+            if let contentView = contentView {
                 addSubview(contentView)
                 updateContentViewConstraints()
             }
@@ -39,20 +36,17 @@ public class AutoScrollView: UIScrollView {
     private var contentViewConstraints: [NSLayoutConstraint]?
     
     override public var contentInset: UIEdgeInsets {
-        get { return _contentInset }
-        set {
-            _contentInset = newValue
+        didSet {
             updateContentViewConstraints()
         }
     }
-    private var _contentInset = UIEdgeInsetsZero
     
     private func updateContentViewConstraints() {
         if let constraints = contentViewConstraints {
             NSLayoutConstraint.deactivateConstraints(constraints)
         }
         if let contentView = contentView {
-            contentViewConstraints = contentView.activateSuperviewHuggingConstraints(insets: _contentInset)
+            contentViewConstraints = contentView.activateSuperviewHuggingConstraints(insets: contentInset)
         } else {
             contentViewConstraints = nil
         }
