@@ -24,7 +24,7 @@ public class SeparatorView: UIView {
     
     /// The inset of the separator from the left (MinX) edge for a horizontal
     /// separator and from the bottom (MaxY) edge for a vertical separator.
-    private var separatorInset: CGFloat = 15.0 {
+    public var separatorInset: CGFloat = 15.0 {
         didSet { setNeedsDisplay() }
     }
     
