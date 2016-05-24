@@ -111,6 +111,16 @@ class StackViewControllerTests: XCTestCase {
         XCTAssertEqual([1, 10], stackViewController.items.map { $0.tag })
         XCTAssertEqual(2, stackViewController.childViewControllers.count)
     }
+    
+    func testItemsSetter() {
+        stackViewController.items = [
+            createViewWithTag(1),
+            TestViewController(tag: 10)
+        ]
+        
+        XCTAssertEqual([1, 10], stackViewController.items.map { $0.tag })
+        XCTAssertEqual(2, stackViewController.childViewControllers.count)
+    }
 }
 
 private extension StackViewItem {
