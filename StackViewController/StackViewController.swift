@@ -28,7 +28,6 @@ public class StackViewController: UIViewController {
             for (index, _) in _items.enumerate() {
                 removeItemAtIndex(index)
             }
-            _items = newItems
             for item in newItems {
                 addItem(item, canShowSeparator: true)
             }
