@@ -17,7 +17,7 @@ class StackViewContainerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         stackViewContainer = StackViewContainer()
-        stackViewContainer.separatorViewFactory = SeparatorView.init
+        stackViewContainer.separatorViewFactory = StackViewContainer.createSeparatorViewFactory { _ in }
     }
     
     private func contentViewWithTag(tag: Int) -> ContentView {
@@ -243,6 +243,7 @@ class StackViewContainerTests: XCTestCase {
     }
     
     func testSeparatorViewFactorySetter() {
+        let separatorViewFactory = stackViewContainer.separatorViewFactory
         stackViewContainer.separatorViewFactory = nil
         stackViewContainer.contentViews = [
             contentViewWithTag(1),
@@ -251,7 +252,7 @@ class StackViewContainerTests: XCTestCase {
         XCTAssertEqual(2, stackViewContainer.contentViews.count)
         XCTAssertEqual([1, 2], stackViewContainer.stackView.arrangedSubviews.map { $0.tag })
         
-        stackViewContainer.separatorViewFactory = SeparatorView.init
+        stackViewContainer.separatorViewFactory = separatorViewFactory
         XCTAssertEqual(2, stackViewContainer.contentViews.count)
         XCTAssertEqual([1, 0, 2], stackViewContainer.stackView.arrangedSubviews.map { $0.tag })
     }
@@ -267,7 +268,7 @@ class StackViewContainerTests: XCTestCase {
                 .filter { $0.isKindOfClass(SeparatorView.self) }
                 .map { $0 as! SeparatorView }
             separators.forEach {
-                XCTAssertEqual(axis, $0.axis)
+                XCTAssertNotEqual(axis, $0.axis)
             }
         }
         
