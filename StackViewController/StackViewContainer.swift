@@ -56,6 +56,25 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
         didSet { relayoutContent(false) }
     }
     
+    /// Creates a separator view factory that uses the `SeparatorView` class
+    /// provided by this framework to render the view. The separator will
+    /// automatically use the correct orientation based on the orientation
+    /// of the stack view. The `configurator` block can be used to customize
+    /// the appearance of the separator.
+    public static func createSeparatorViewFactory(configurator: SeparatorView -> Void) -> SeparatorViewFactory {
+        return { axis in
+            let separatorAxis: UILayoutConstraintAxis = {
+                switch axis {
+                case .Horizontal: return .Vertical
+                case .Vertical: return .Horizontal
+                }
+            }()
+            let separatorView = SeparatorView(axis: separatorAxis)
+            configurator(separatorView)
+            return separatorView
+        }
+    }
+    
     /// The axis (direction) that content is laid out in. Setting the axis via
     /// this property instead of `stackView.axis` ensures that any separator
     /// views are recreated to account for the change in layout direction.

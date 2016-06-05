@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     init() {
         stackViewController = StackViewController()
-        stackViewController.stackViewContainer.separatorViewFactory = SeparatorView.init
+        stackViewController.stackViewContainer.separatorViewFactory = StackViewContainer.createSeparatorViewFactory { _ in }
         
         super.init(nibName: nil, bundle: nil)
         
