@@ -17,7 +17,7 @@ class StackViewContainerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         stackViewContainer = StackViewContainer()
-        stackViewContainer.separatorViewFactory = StackViewContainer.createSeparatorViewFactory { _ in }
+        stackViewContainer.separatorViewFactory = StackViewContainer.createSeparatorViewFactory()
     }
     
     private func contentViewWithTag(tag: Int) -> ContentView {

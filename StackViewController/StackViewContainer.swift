@@ -63,7 +63,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     /// automatically use the correct orientation based on the orientation
     /// of the stack view. The `configurator` block can be used to customize
     /// the appearance of the separator.
-    public static func createSeparatorViewFactory(configurator: SeparatorView -> Void) -> SeparatorViewFactory {
+    public static func createSeparatorViewFactory(configurator: (SeparatorView -> Void)? = nil) -> SeparatorViewFactory {
         return { axis in
             let separatorAxis: UILayoutConstraintAxis = {
                 switch axis {
@@ -72,7 +72,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
                 }
             }()
             let separatorView = SeparatorView(axis: separatorAxis)
-            configurator(separatorView)
+            configurator?(separatorView)
             return separatorView
         }
     }
