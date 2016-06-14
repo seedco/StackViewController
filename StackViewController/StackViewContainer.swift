@@ -21,6 +21,8 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     /// the `axis` property. `StackViewContainer.axis` should be set instead.
     public let stackView: UIStackView
     
+    private let backgroundColorContainerView = UIView(frame: CGRectZero)
+    
     /// An optional background view that is shown behind the stack view. The
     /// top of the background view will be kept pinned to the top of the scroll
     /// view bounds, even when bouncing.
@@ -88,6 +90,13 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     }
     private var stackViewSizeConstraint: NSLayoutConstraint?
     
+    public override var backgroundColor: UIColor? {
+        didSet {
+            scrollView.backgroundColor = backgroundColor
+            backgroundColorContainerView.backgroundColor = backgroundColor
+        }
+    }
+    
     public typealias SeparatorViewFactory = UILayoutConstraintAxis -> UIView
     
     /// Initializes an instance of `StackViewContainer` using a stack view
@@ -117,7 +126,9 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
     }
     
     private func commonInit() {
-        scrollView.contentView = stackView
+        backgroundColorContainerView.addSubview(stackView)
+        stackView.activateSuperviewHuggingConstraints()
+        scrollView.contentView = backgroundColorContainerView
         scrollView.delegate = self
         addSubview(scrollView)
         scrollView.activateSuperviewHuggingConstraints()
