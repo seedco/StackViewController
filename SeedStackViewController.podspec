@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SeedStackViewController"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "Simplifies the process of building forms and other static content using UIStackView."
   s.description      = <<-DESC
 StackViewController is a Swift framework that simplifies the process of building forms and other static content using UIStackView.
