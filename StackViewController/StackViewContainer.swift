@@ -271,7 +271,7 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
         precondition(index < items.endIndex)
         
         let item = items[index]
-        if items.count >= 1 && index == items.endIndex.predecessor() {
+        if items.count >= 1 && index == items.endIndex.predecessor() && index > 0 {
             let previousItem = items[index.predecessor()]
             if let separatorView = previousItem.separatorView {
                 stackView.removeArrangedSubview(separatorView)
@@ -283,7 +283,8 @@ public class StackViewContainer: UIView, UIScrollViewDelegate {
             stackView.removeArrangedSubview(separatorView)
         }
         items.removeAtIndex(index)
-        _contentViews.removeAtIndex(index)
+        let view = _contentViews.removeAtIndex(index)
+        view.removeFromSuperview()
     }
     
     /**
