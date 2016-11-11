@@ -9,7 +9,7 @@
 import UIKit
 import StackViewController
 
-protocol ImageThumbnailViewDelegate: AnyObject {
+protocol ImageThumbnailViewDelegate: Any {
     func imageThumbnailViewDidTapDeleteButton(view: ImageThumbnailView)
 }
 

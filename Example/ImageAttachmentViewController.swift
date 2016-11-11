@@ -39,9 +39,9 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
     
     // MARK: UIImagePickerControllerDelegate
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismissViewControllerAnimated(true, completion: nil)
-        guard let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL else { return }
+        guard let imageURL = info[UIImagePickerControllerReferenceURL] as? URL else { return }
         getImageThumbnail(imageURL) { image in
             if let image = image {
                 self.attachmentView?.addImageWithThumbnail(image)
@@ -49,7 +49,7 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
         }
     }
     
-    private func getImageThumbnail(imageURL: NSURL, completion: UIImage? -> Void) {
+    private func getImageThumbnail(imageURL: URL, completion: UIImage? -> Void) {
         let result = PHAsset.fetchAssetsWithALAssetURLs([imageURL], options: nil)
         guard let asset = result.firstObject as? PHAsset else {
             completion(nil)

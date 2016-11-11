@@ -127,11 +127,11 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
     
     fileprivate func commonInit() {
         backgroundColorContainerView.addSubview(stackView)
-        stackView.activateSuperviewHuggingConstraints()
+        _ = stackView.activateSuperviewHuggingConstraints()
         scrollView.contentView = backgroundColorContainerView
         scrollView.delegate = self
         addSubview(scrollView)
-        scrollView.activateSuperviewHuggingConstraints()
+        _ = scrollView.activateSuperviewHuggingConstraints()
         updateSizeConstraint()
     }
     
