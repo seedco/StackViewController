@@ -10,37 +10,37 @@ import UIKit
 import Photos
 
 class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private struct Constants {
+    fileprivate struct Constants {
         static let ThumbnailSize = CGSize(width: 96, height: 96)
     }
     
-    private var attachmentView: ImageAttachmentView?
+    fileprivate var attachmentView: ImageAttachmentView?
     
     convenience init() {
         self.init(nibName: nil, bundle: nil)
     }
     
     override func loadView() {
-        let attachmentView = ImageAttachmentView(frame: CGRectZero)
-        attachmentView.attachButton.addTarget(self, action: #selector(ImageAttachmentViewController.attachImage(_:)), forControlEvents: .TouchUpInside)
+        let attachmentView = ImageAttachmentView(frame: CGRect.zero)
+        attachmentView.attachButton.addTarget(self, action: #selector(ImageAttachmentViewController.attachImage(_:)), for: .touchUpInside)
         view = attachmentView
         self.attachmentView = attachmentView
     }
     
     // MARK: Actions
     
-    @objc private func attachImage(sender: UIButton) {
-        guard UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) else { return }
+    @objc fileprivate func attachImage(_ sender: UIButton) {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        pickerController.sourceType = .PhotoLibrary
-        presentViewController(pickerController, animated: true, completion: nil)
+        pickerController.sourceType = .photoLibrary
+        present(pickerController, animated: true, completion: nil)
     }
     
     // MARK: UIImagePickerControllerDelegate
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        dismiss(animated: true, completion: nil)
         guard let imageURL = info[UIImagePickerControllerReferenceURL] as? URL else { return }
         getImageThumbnail(imageURL) { image in
             if let image = image {
@@ -49,18 +49,18 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
         }
     }
     
-    private func getImageThumbnail(imageURL: URL, completion: UIImage? -> Void) {
-        let result = PHAsset.fetchAssetsWithALAssetURLs([imageURL], options: nil)
+    fileprivate func getImageThumbnail(_ imageURL: URL, completion: @escaping (UIImage?) -> Void) {
+        let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
         guard let asset = result.firstObject as? PHAsset else {
             completion(nil)
             return
         }
-        let imageManager = PHImageManager.defaultManager()
+        let imageManager = PHImageManager.default()
         let options = PHImageRequestOptions()
-        options.resizeMode = .Exact
-        options.deliveryMode = .HighQualityFormat
+        options.resizeMode = .exact
+        options.deliveryMode = .highQualityFormat
         
-        let scale = UIScreen.mainScreen().scale
+        let scale = UIScreen.main.scale
         let targetSize: CGSize = {
             var targetSize = Constants.ThumbnailSize
             targetSize.width *= scale
@@ -71,7 +71,7 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
         imageManager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .AspectFill, options: options) { (image, info) in
             let degraded = info?[PHImageResultIsDegradedKey] as? Bool
             if degraded == nil || degraded! == false {
-                if let image = image, CGImage = image.CGImage {
+                if let image = image, let CGImage = image.CGImage {
                     let scaleCorrectedImage = UIImage(CGImage: CGImage, scale: scale, orientation: image.imageOrientation)
                     completion(scaleCorrectedImage)
                 } else {

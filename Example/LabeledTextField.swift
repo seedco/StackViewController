@@ -10,13 +10,13 @@ import UIKit
 import StackViewController
 
 class LabeledTextField: UIView {
-    private struct Appearance {
+    fileprivate struct Appearance {
         static let LabelTextColor = UIColor(white: 0.56, alpha: 1.0)
-        static let FieldTextColor = UIColor.blackColor()
-        static let Font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        static let FieldTextColor = UIColor.black
+        static let Font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
     }
     
-    private struct Layout {
+    fileprivate struct Layout {
         static let EdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         static let StackViewSpacing: CGFloat = 10
     }
@@ -25,20 +25,20 @@ class LabeledTextField: UIView {
     let textField: UITextField
     
     init(labelText: String) {
-        label = UILabel(frame: CGRectZero)
+        label = UILabel(frame: CGRect.zero)
         label.textColor = Appearance.LabelTextColor
         label.font = Appearance.Font
         label.text = labelText
-        label.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
+        label.setContentHuggingPriority(UILayoutPriorityDefaultHigh, for: .horizontal)
         
-        textField = UITextField(frame: CGRectZero)
+        textField = UITextField(frame: CGRect.zero)
         textField.textColor = Appearance.FieldTextColor
         textField.font = Appearance.Font
         
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         let stackView = UIStackView(arrangedSubviews: [label, textField])
-        stackView.axis = .Horizontal
+        stackView.axis = .horizontal
         stackView.spacing = Layout.StackViewSpacing
         
         addSubview(stackView)

@@ -9,7 +9,7 @@
 import UIKit
 
 class LabeledTextFieldController: UIViewController, UITextFieldDelegate {
-    private let labelText: String
+    fileprivate let labelText: String
     
     init(labelText: String) {
         self.labelText = labelText
@@ -28,7 +28,7 @@ class LabeledTextFieldController: UIViewController, UITextFieldDelegate {
     
     // MARK: UITextFieldDelegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
     }

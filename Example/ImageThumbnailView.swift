@@ -10,24 +10,24 @@ import UIKit
 import StackViewController
 
 protocol ImageThumbnailViewDelegate: Any {
-    func imageThumbnailViewDidTapDeleteButton(view: ImageThumbnailView)
+    func imageThumbnailViewDidTapDeleteButton(_ view: ImageThumbnailView)
 }
 
-public class ImageThumbnailView: UIView {
-    private struct Appearance {
+open class ImageThumbnailView: UIView {
+    fileprivate struct Appearance {
         static let ImageCornerRadius: CGFloat = 8.0
     }
     
     weak var delegate: ImageThumbnailViewDelegate?
     
     init(thumbnail: UIImage) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         let deleteButtonImage = UIImage(named: "delete-button")!
-        let deleteButton = UIButton(type: .Custom)
+        let deleteButton = UIButton(type: .custom)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setBackgroundImage(deleteButtonImage, forState: .Normal)
-        deleteButton.addTarget(self, action: #selector(ImageThumbnailView.didTapDelete(_:)), forControlEvents: .TouchUpInside)
+        deleteButton.setBackgroundImage(deleteButtonImage, for: UIControlState())
+        deleteButton.addTarget(self, action: #selector(ImageThumbnailView.didTapDelete(_:)), for: .touchUpInside)
         
         let imageView = UIImageView(image: thumbnail)
         imageView.layer.cornerRadius = Appearance.ImageCornerRadius
@@ -44,10 +44,10 @@ public class ImageThumbnailView: UIView {
             "deleteButton": deleteButton,
             "imageView": imageView
         ]
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[deleteButton]-imageViewTop-[imageView]|", options: [], metrics: metrics, views: views)
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[deleteButton]-imageViewLeft-[imageView]|", options: [], metrics: metrics, views: views)
-        NSLayoutConstraint.activateConstraints(verticalConstraints)
-        NSLayoutConstraint.activateConstraints(horizontalConstraints)
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[deleteButton]-imageViewTop-[imageView]|", options: [], metrics: metrics, views: views)
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[deleteButton]-imageViewLeft-[imageView]|", options: [], metrics: metrics, views: views)
+        NSLayoutConstraint.activate(verticalConstraints)
+        NSLayoutConstraint.activate(horizontalConstraints)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -56,7 +56,7 @@ public class ImageThumbnailView: UIView {
     
     // MARK: Actions
     
-    @objc private func didTapDelete(sender: UIButton) {
+    @objc fileprivate func didTapDelete(_ sender: UIButton) {
         delegate?.imageThumbnailViewDidTapDeleteButton(self)
     }
 }

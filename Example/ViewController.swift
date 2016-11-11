@@ -10,9 +10,9 @@ import UIKit
 import StackViewController
 
 class ViewController: UIViewController {
-    private let stackViewController: StackViewController
-    private var firstField: UIView?
-    private var bodyTextView: UITextView?
+    fileprivate let stackViewController: StackViewController
+    fileprivate var firstField: UIView?
+    fileprivate var bodyTextView: UITextView?
     
     init() {
         stackViewController = StackViewController()
@@ -20,9 +20,9 @@ class ViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        edgesForExtendedLayout = .None
+        edgesForExtendedLayout = UIRectEdge()
         title = "Send Message"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .Done, target: self, action: #selector(ViewController.send(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(ViewController.send(_:)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }
     
     override func loadView() {
-        view = UIView(frame: CGRectZero)
+        view = UIView(frame: CGRect.zero)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.didTapView)))
     }
 
@@ -40,15 +40,15 @@ class ViewController: UIViewController {
         displayStackViewController()
     }
     
-    private func setupStackViewController() {
+    fileprivate func setupStackViewController() {
         let toFieldController = LabeledTextFieldController(labelText: "To:")
         firstField = toFieldController.view
         stackViewController.addItem(toFieldController)
         stackViewController.addItem(LabeledTextFieldController(labelText: "Subject:"))
         
-        let textView = UITextView(frame: CGRectZero)
-        textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        textView.scrollEnabled = false
+        let textView = UITextView(frame: CGRect.zero)
+        textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        textView.isScrollEnabled = false
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 10, bottom: 0, right: 10)
         textView.text = "This field automatically expands as you type, no additional logic required"
         stackViewController.addItem(textView, canShowSeparator: false)
@@ -57,23 +57,23 @@ class ViewController: UIViewController {
         stackViewController.addItem(ImageAttachmentViewController())
     }
     
-    private func displayStackViewController() {
+    fileprivate func displayStackViewController() {
         addChildViewController(stackViewController)
         view.addSubview(stackViewController.view)
         stackViewController.view.activateSuperviewHuggingConstraints()
-        stackViewController.didMoveToParentViewController(self)
+        stackViewController.didMove(toParentViewController: self)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         firstField?.becomeFirstResponder()
     }
     
     // MARK: Actions
     
-    @objc private func send(sender: UIBarButtonItem) {}
+    @objc fileprivate func send(_ sender: UIBarButtonItem) {}
     
-    @objc private func didTapView(gestureRecognizer: UIGestureRecognizer) {
+    @objc fileprivate func didTapView(_ gestureRecognizer: UIGestureRecognizer) {
         bodyTextView?.becomeFirstResponder()
     }
 }
