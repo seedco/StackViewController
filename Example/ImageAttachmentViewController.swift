@@ -51,7 +51,7 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
     
     fileprivate func getImageThumbnail(_ imageURL: URL, completion: @escaping (UIImage?) -> Void) {
         let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
-        guard let asset = result.firstObject as? PHAsset else {
+        guard let asset = result.firstObject else {
             completion(nil)
             return
         }
@@ -68,11 +68,11 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
             return targetSize
         }()
         
-        imageManager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .AspectFill, options: options) { (image, info) in
+        imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { (image, info) in
             let degraded = info?[PHImageResultIsDegradedKey] as? Bool
             if degraded == nil || degraded! == false {
-                if let image = image, let CGImage = image.CGImage {
-                    let scaleCorrectedImage = UIImage(CGImage: CGImage, scale: scale, orientation: image.imageOrientation)
+                if let image = image, let CGImage = image.cgImage {
+                    let scaleCorrectedImage = UIImage(cgImage: CGImage, scale: scale, orientation: image.imageOrientation)
                     completion(scaleCorrectedImage)
                 } else {
                     completion(nil)

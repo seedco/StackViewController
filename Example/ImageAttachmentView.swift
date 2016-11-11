@@ -39,7 +39,7 @@ class ImageAttachmentView: UIView, ImageThumbnailViewDelegate {
         scrollView.scrollIndicatorInsets = Layout.ScrollViewInsets
         
         addSubview(stackViewContainer)
-        stackViewContainer.activateSuperviewHuggingConstraints(insets: Layout.ContainerInsets)
+        _ = stackViewContainer.activateSuperviewHuggingConstraints(insets: Layout.ContainerInsets)
     }
     
     required init?(coder aDecoder: NSCoder) {

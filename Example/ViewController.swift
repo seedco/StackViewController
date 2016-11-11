@@ -60,7 +60,7 @@ class ViewController: UIViewController {
     fileprivate func displayStackViewController() {
         addChildViewController(stackViewController)
         view.addSubview(stackViewController.view)
-        stackViewController.view.activateSuperviewHuggingConstraints()
+        _ = stackViewController.view.activateSuperviewHuggingConstraints()
         stackViewController.didMove(toParentViewController: self)
     }
     

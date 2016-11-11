@@ -42,7 +42,7 @@ class LabeledTextField: UIView {
         stackView.spacing = Layout.StackViewSpacing
         
         addSubview(stackView)
-        stackView.activateSuperviewHuggingConstraints(insets: Layout.EdgeInsets)
+        _ = stackView.activateSuperviewHuggingConstraints(insets: Layout.EdgeInsets)
     }
     
     required init?(coder aDecoder: NSCoder) {
