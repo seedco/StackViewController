@@ -11,10 +11,10 @@ import UIKit
 /// A scroll view that automatically scrolls to a subview of its `contentView`
 /// when the keyboard is shown. This replicates the behaviour implemented by
 /// `UITableView`.
-public class AutoScrollView: UIScrollView {
-    private struct Constants {
-        static let DefaultAnimationDuration: NSTimeInterval = 0.25
-        static let DefaultAnimationCurve = UIViewAnimationCurve.EaseInOut
+open class AutoScrollView: UIScrollView {
+    fileprivate struct Constants {
+        static let DefaultAnimationDuration: TimeInterval = 0.25
+        static let DefaultAnimationCurve = UIViewAnimationCurve.easeInOut
         static let ScrollAnimationID = "AutoscrollAnimation"
     }
     
@@ -22,7 +22,7 @@ public class AutoScrollView: UIScrollView {
     /// be added directly to this view without using the `contentView` property,
     /// but it simply makes it more convenient for the common case where your
     /// content fills the bounds of the scroll view.
-    public var contentView: UIView? {
+    open var contentView: UIView? {
         willSet {
             contentView?.removeFromSuperview()
         }
@@ -33,17 +33,17 @@ public class AutoScrollView: UIScrollView {
             }
         }
     }
-    private var contentViewConstraints: [NSLayoutConstraint]?
+    fileprivate var contentViewConstraints: [NSLayoutConstraint]?
     
-    override public var contentInset: UIEdgeInsets {
+    override open var contentInset: UIEdgeInsets {
         didSet {
             updateContentViewConstraints()
         }
     }
     
-    private func updateContentViewConstraints() {
+    fileprivate func updateContentViewConstraints() {
         if let constraints = contentViewConstraints {
-            NSLayoutConstraint.deactivateConstraints(constraints)
+            NSLayoutConstraint.deactivate(constraints)
         }
         if let contentView = contentView {
             contentViewConstraints = contentView.activateSuperviewHuggingConstraints(insets: contentInset)
@@ -52,10 +52,10 @@ public class AutoScrollView: UIScrollView {
         }
     }
     
-    private func commonInit() {
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    fileprivate func commonInit() {
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     public override init(frame: CGRect) {
@@ -69,20 +69,20 @@ public class AutoScrollView: UIScrollView {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Notifications
     
     // Implementation based on code from Apple documentation
     // https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
-    @objc private func keyboardWillShow(notification: NSNotification) {
+    @objc fileprivate func keyboardWillShow(_ notification: Notification) {
         let keyboardFrameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
-        guard var keyboardFrame = keyboardFrameValue?.CGRectValue() else { return }
-        keyboardFrame = convertRect(keyboardFrame, fromView: nil)
+        guard var keyboardFrame = keyboardFrameValue?.cgRectValue else { return }
+        keyboardFrame = convert(keyboardFrame, from: nil)
         
         let bottomInset: CGFloat
-        let keyboardIntersectionRect = bounds.intersect(keyboardFrame)
+        let keyboardIntersectionRect = bounds.intersection(keyboardFrame)
         if !keyboardIntersectionRect.isNull {
             bottomInset = keyboardIntersectionRect.height
             let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
@@ -93,12 +93,12 @@ public class AutoScrollView: UIScrollView {
         }
         
         guard let firstResponder = firstResponder else { return }
-        let firstResponderFrame = firstResponder.convertRect(firstResponder.bounds, toView: self)
+        let firstResponderFrame = firstResponder.convert(firstResponder.bounds, to: self)
         
         var contentBounds = CGRect(origin: contentOffset, size: bounds.size)
         contentBounds.size.height -= bottomInset
         if !contentBounds.contains(firstResponderFrame.origin) {
-            let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval ?? Constants.DefaultAnimationDuration
+            let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? Constants.DefaultAnimationDuration
             let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UIViewAnimationCurve ?? Constants.DefaultAnimationCurve
             
             // Dropping down to the old style UIView animation API because the new API
@@ -113,15 +113,15 @@ public class AutoScrollView: UIScrollView {
         }
     }
     
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        super.contentInset = UIEdgeInsetsZero
-        scrollIndicatorInsets = UIEdgeInsetsZero
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
+        super.contentInset = UIEdgeInsets.zero
+        scrollIndicatorInsets = UIEdgeInsets.zero
     }
 }
 
 private extension UIView {
     var firstResponder: UIView? {
-        if isFirstResponder() {
+        if isFirstResponder {
             return self
         }
         for subview in subviews {

@@ -10,10 +10,10 @@ import XCTest
 @testable import StackViewController
 
 class StackViewControllerTests: XCTestCase {
-    private var stackViewController: StackViewController!
+    fileprivate var stackViewController: StackViewController!
     
-    private class TestViewController: UIViewController {
-        private let tag: Int
+    fileprivate class TestViewController: UIViewController {
+        fileprivate let tag: Int
         
         init(tag: Int) {
             self.tag = tag
@@ -24,8 +24,8 @@ class StackViewControllerTests: XCTestCase {
             fatalError("init(coder:) has not been implemented")
         }
         
-        private override func loadView() {
-            view = UIView(frame: CGRectZero)
+        fileprivate override func loadView() {
+            view = UIView(frame: CGRect.zero)
             view.tag = tag
         }
     }
@@ -35,8 +35,8 @@ class StackViewControllerTests: XCTestCase {
         stackViewController = StackViewController()
     }
     
-    private func createViewWithTag(tag: Int) -> UIView {
-        let view = UIView(frame: CGRectZero)
+    fileprivate func createViewWithTag(_ tag: Int) -> UIView {
+        let view = UIView(frame: CGRect.zero)
         view.tag = tag
         return view
     }

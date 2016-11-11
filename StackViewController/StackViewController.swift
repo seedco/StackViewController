@@ -13,19 +13,19 @@ import UIKit
 /// view controllers that control each content view are added as child view
 /// controllers via the API exposed in this class. Adding and removing these
 /// child view controllers is managed automatically.
-public class StackViewController: UIViewController {
+open class StackViewController: UIViewController {
     /// This is exposed for configuring `backgroundView`, `stackView`
     /// `axis`, and `separatorViewFactory`. All other operations should
     /// be performed via this controller and not directly via the container view.
-    public lazy var stackViewContainer = StackViewContainer()
+    open lazy var stackViewContainer = StackViewContainer()
     
-    private var _items = [StackViewItem]()
+    fileprivate var _items = [StackViewItem]()
     
     /// The items displayed by this controller
-    public var items: [StackViewItem] {
+    open var items: [StackViewItem] {
         get { return _items }
         set(newItems) {
-            for (index, _) in _items.enumerate() {
+            for (index, _) in _items.enumerated() {
                 removeItemAtIndex(index)
             }
             for item in newItems {
@@ -33,9 +33,9 @@ public class StackViewController: UIViewController {
             }
         }
     }
-    private var viewControllers = [UIViewController]()
+    fileprivate var viewControllers = [UIViewController]()
     
-    public override func loadView() {
+    open override func loadView() {
         view = stackViewContainer
     }
     
@@ -49,7 +49,7 @@ public class StackViewController: UIViewController {
      `StackViewContainer.setCanShowSeparator(:forContentViewAtIndex:)` for more
      details on this parameter.
      */
-    public func addItem(item: StackViewItem, canShowSeparator: Bool = true) {
+    open func addItem(_ item: StackViewItem, canShowSeparator: Bool = true) {
         insertItem(item, atIndex: _items.endIndex, canShowSeparator: canShowSeparator)
     }
     
@@ -64,13 +64,13 @@ public class StackViewController: UIViewController {
      `StackViewContainer.setCanShowSeparator(:forContentViewAtIndex:)` for more
      details on this parameter.
      */
-    public func insertItem(item: StackViewItem, atIndex index: Int, canShowSeparator: Bool = true) {
+    open func insertItem(_ item: StackViewItem, atIndex index: Int, canShowSeparator: Bool = true) {
         precondition(index >= _items.startIndex)
         precondition(index <= _items.endIndex)
         
-        _items.insert(item, atIndex: index)
+        _items.insert(item, at: index)
         let viewController = item.toViewController()
-        viewControllers.insert(viewController, atIndex: index)
+        viewControllers.insert(viewController, at: index)
         addChildViewController(viewController)
         stackViewContainer.insertContentView(viewController.view, atIndex: index, canShowSeparator: canShowSeparator)
     }
@@ -81,8 +81,8 @@ public class StackViewController: UIViewController {
      
      - parameter item: The item to remove.
      */
-    public func removeItem(item: StackViewItem) {
-        guard let index = _items.indexOf({ $0 === item }) else { return }
+    open func removeItem(_ item: StackViewItem) {
+        guard let index = _items.index(where: { $0 === item }) else { return }
         removeItemAtIndex(index)
     }
     
@@ -91,13 +91,13 @@ public class StackViewController: UIViewController {
      
      - parameter index: The index of the item to remove
      */
-    public func removeItemAtIndex(index: Int) {
-        _items.removeAtIndex(index)
+    open func removeItemAtIndex(_ index: Int) {
+        _items.remove(at: index)
         let viewController = viewControllers[index]
-        viewController.willMoveToParentViewController(nil)
+        viewController.willMove(toParentViewController: nil)
         stackViewContainer.removeContentViewAtIndex(index)
         viewController.removeFromParentViewController()
-        viewControllers.removeAtIndex(index)
+        viewControllers.remove(at: index)
     }
     
     /**
@@ -109,8 +109,8 @@ public class StackViewController: UIViewController {
      - parameter item:             The item for which to configure separator
      visibility
      */
-    public func setCanShowSeparator(canShowSeparator: Bool, forItem item: StackViewItem) {
-        guard let index = _items.indexOf({ $0 === item }) else { return }
+    open func setCanShowSeparator(_ canShowSeparator: Bool, forItem item: StackViewItem) {
+        guard let index = _items.index(where: { $0 === item }) else { return }
         setCanShowSeparator(canShowSeparator, forItemAtIndex: index)
     }
     
@@ -123,7 +123,7 @@ public class StackViewController: UIViewController {
      - parameter index:            The index of the item to configure separator
      visibility for.
      */
-    public func setCanShowSeparator(canShowSeparator: Bool, forItemAtIndex index: Int) {
+    open func setCanShowSeparator(_ canShowSeparator: Bool, forItemAtIndex index: Int) {
         stackViewContainer.setCanShowSeparator(canShowSeparator, forContentViewAtIndex: index)
     }
 }

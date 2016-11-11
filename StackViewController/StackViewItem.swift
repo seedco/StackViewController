@@ -25,7 +25,7 @@ extension UIView: StackViewItem {
 }
 
 private class WrapperViewController: UIViewController {
-    private let _view: UIView
+    fileprivate let _view: UIView
     
     init(view: UIView) {
         _view = view
@@ -36,7 +36,7 @@ private class WrapperViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private override func loadView() {
+    fileprivate override func loadView() {
         view = _view
     }
 }
