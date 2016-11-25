@@ -1,6 +1,5 @@
-
-SDK="iphonesimulator9.3"
-DESTINATION="platform=iOS Simulator,name=iPhone 6,OS=9.3"
+SDK="iphonesimulator"
+DESTINATION="platform=iOS Simulator,name=iPhone 6"
 PROJECT="StackViewController"
 
 .PHONY: all
