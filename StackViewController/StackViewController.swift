@@ -59,6 +59,13 @@ open class StackViewController: UIViewController {
             stackViewContainer.separatorViewFactory = newValue
         }
     }
+
+    /// The scroll view that is the superview of the stack view.
+    /// The scrollview automatically accommodates the keyboard. This replicates the behaviour
+    /// implemented by `UITableView`.
+    open var scrollView: UIScrollView {
+        return stackViewContainer.scrollView
+    }
     
     fileprivate var _items = [StackViewItem]()
     
