@@ -32,6 +32,15 @@ open class StackViewController: UIViewController {
         }
     }
 
+    open var backgroundColor: UIColor? {
+        get {
+            return stackViewContainer.backgroundColor
+        }
+        set {
+            stackViewContainer.backgroundColor = newValue
+        }
+    }
+
     /// The stack view. It is not safe to modify the arranged subviews directly
     /// via the stack view. The items collection accessors on
     /// `StackViewController` should be used instead. It is also not safe to modify
