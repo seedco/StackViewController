@@ -17,6 +17,7 @@ open class StackViewController: UIViewController {
     /// This is exposed for configuring `backgroundView`, `stackView`
     /// `axis`, and `separatorViewFactory`. All other operations should
     /// be performed via this controller and not directly via the container view.
+    @available(*, deprecated, message: "Use the `backgroundView`, `stackView`, `axis`, `separatorViewFactory` or `scrollView` property on `StackViewController` instead.")
     open lazy var stackViewContainer = StackViewContainer()
 
     /// An optional background view that is shown behind the stack view. The
