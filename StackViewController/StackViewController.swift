@@ -18,6 +18,47 @@ open class StackViewController: UIViewController {
     /// `axis`, and `separatorViewFactory`. All other operations should
     /// be performed via this controller and not directly via the container view.
     open lazy var stackViewContainer = StackViewContainer()
+
+    /// An optional background view that is shown behind the stack view. The
+    /// top of the background view will be kept pinned to the top of the scroll
+    /// view bounds, even when bouncing.
+    open var backgroundView: UIView? {
+        get {
+            return stackViewContainer.backgroundView
+        }
+        set {
+            stackViewContainer.backgroundView = newValue
+        }
+    }
+
+    /// The stack view. It is not safe to modify the arranged subviews directly
+    /// via the stack view. The items collection accessors on
+    /// `StackViewController` should be used instead. It is also not safe to modify
+    /// the `axis` property. `StackViewController.axis` should be set instead.
+    open var stackView: UIStackView {
+        return stackViewContainer.stackView
+    }
+
+    /// The axis (direction) that content is laid out in. Setting the axis via
+    /// this property instead of `stackView.axis` ensures that any separator
+    /// views are recreated to account for the change in layout direction.
+    open var axis: UILayoutConstraintAxis {
+        get {
+            return stackViewContainer.axis
+        }
+        set {
+            stackViewContainer.axis = newValue
+        }
+    }
+
+    open var separatorViewFactory: StackViewContainer.SeparatorViewFactory? {
+        get {
+            return stackViewContainer.separatorViewFactory
+        }
+        set {
+            stackViewContainer.separatorViewFactory = newValue
+        }
+    }
     
     fileprivate var _items = [StackViewItem]()
     
