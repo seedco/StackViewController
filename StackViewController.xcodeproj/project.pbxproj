@@ -125,7 +125,9 @@
 				72D1940C1CC357A100645F83 /* Example */,
 				72B21E561CBC34EF00724EB8 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		72B21E561CBC34EF00724EB8 /* Products */ = {
 			isa = PBXGroup;
