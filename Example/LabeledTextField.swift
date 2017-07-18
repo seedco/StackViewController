@@ -29,7 +29,7 @@ class LabeledTextField: UIView {
         label.textColor = Appearance.LabelTextColor
         label.font = Appearance.Font
         label.text = labelText
-        label.setContentHuggingPriority(UILayoutPriorityDefaultHigh, for: .horizontal)
+        label.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
         
         textField = UITextField(frame: CGRect.zero)
         textField.textColor = Appearance.FieldTextColor
