@@ -12,6 +12,6 @@ StackViewController is a Swift framework that simplifies the process of building
   s.author           = { "Indragie Karunaratne" => "i@indragie.com" }
   s.source           = { :git => "https://github.com/seedco/StackViewController.git", :tag => s.version.to_s }
   s.ios.deployment_target = '9.0'
-  s.source_files = 'StackViewController/**'
+  s.source_files = 'StackViewController/*.{h,swift}'
   s.frameworks = 'UIKit'
 end
