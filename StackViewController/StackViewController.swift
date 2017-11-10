@@ -14,12 +14,6 @@ import UIKit
 /// controllers via the API exposed in this class. Adding and removing these
 /// child view controllers is managed automatically.
 open class StackViewController: UIViewController {
-    /// This is exposed for configuring `backgroundView`, `stackView`
-    /// `axis`, and `separatorViewFactory`. All other operations should
-    /// be performed via this controller and not directly via the container view.
-    @available(*, deprecated, message: "Use the `backgroundView`, `stackView`, `axis`, `separatorViewFactory` or `scrollView` property on `StackViewController` instead.")
-    open lazy var stackViewContainer = StackViewContainer()
-
     /// An optional background view that is shown behind the stack view. The
     /// top of the background view will be kept pinned to the top of the scroll
     /// view bounds, even when bouncing.
@@ -76,6 +70,8 @@ open class StackViewController: UIViewController {
     open var scrollView: UIScrollView {
         return stackViewContainer.scrollView
     }
+
+    private lazy var stackViewContainer = StackViewContainer()
     
     fileprivate var _items = [StackViewItem]()
     
