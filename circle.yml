@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - sudo -H gem install xcpretty
-  
+
 test:
   override:
-    - make clean test
+    - make clean ci
