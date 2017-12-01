@@ -1,5 +1,4 @@
-# StackViewController
-[![Circle CI](https://circleci.com/gh/seedco/StackViewController/tree/master.svg?style=svg)](https://circleci.com/gh/seedco/StackViewController/tree/master)
+# StackViewController [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat-square)](https://github.com/Carthage/Carthage) [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/SeedStackViewController.svg)](https://img.shields.io/cocoapods/v/SeedStackViewController.svg)
 
 ### Overview
 
