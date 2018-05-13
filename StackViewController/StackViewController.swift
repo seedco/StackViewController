@@ -79,7 +79,7 @@ open class StackViewController: UIViewController {
     open var items: [StackViewItem] {
         get { return _items }
         set(newItems) {
-            for (index, _) in _items.enumerated() {
+            for (index, _) in _items.enumerated().reversed() {
                 removeItemAtIndex(index)
             }
             for item in newItems {
