@@ -13,13 +13,13 @@ import UIKit
 /// using view controller composition to display content.
 open class StackViewContainer: UIView, UIScrollViewDelegate {
     /// The scroll view that is the superview of the stack view.
-    open let scrollView: AutoScrollView
+    public let scrollView: AutoScrollView
     
     /// The stack view. It is not safe to modify the arranged subviews directly
     /// via the stack view. The content view collection accessors on
     /// `StackViewContainer` should be used instead. It is also not safe to modify
     /// the `axis` property. `StackViewContainer.axis` should be set instead.
-    open let stackView: UIStackView
+    public let stackView: UIStackView
     
     fileprivate let backgroundColorContainerView = UIView(frame: CGRect.zero)
     
@@ -63,7 +63,7 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
     /// automatically use the correct orientation based on the orientation
     /// of the stack view. The `configurator` block can be used to customize
     /// the appearance of the separator.
-    open static func createSeparatorViewFactory(_ configurator: ((SeparatorView) -> Void)? = nil) -> SeparatorViewFactory {
+    public static func createSeparatorViewFactory(_ configurator: ((SeparatorView) -> Void)? = nil) -> SeparatorViewFactory {
         return { axis in
             let separatorAxis: NSLayoutConstraint.Axis = {
                 switch axis {
