@@ -65,7 +65,7 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
     /// the appearance of the separator.
     open static func createSeparatorViewFactory(_ configurator: ((SeparatorView) -> Void)? = nil) -> SeparatorViewFactory {
         return { axis in
-            let separatorAxis: UILayoutConstraintAxis = {
+            let separatorAxis: NSLayoutConstraint.Axis = {
                 switch axis {
                 case .horizontal: return .vertical
                 case .vertical: return .horizontal
@@ -80,7 +80,7 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
     /// The axis (direction) that content is laid out in. Setting the axis via
     /// this property instead of `stackView.axis` ensures that any separator
     /// views are recreated to account for the change in layout direction.
-    open var axis: UILayoutConstraintAxis {
+    open var axis: NSLayoutConstraint.Axis {
         get { return stackView.axis }
         set {
             stackView.axis = newValue
@@ -97,7 +97,7 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
         }
     }
     
-    public typealias SeparatorViewFactory = (UILayoutConstraintAxis) -> UIView
+    public typealias SeparatorViewFactory = (NSLayoutConstraint.Axis) -> UIView
     
     /// Initializes an instance of `StackViewContainer` using a stack view
     /// with the default configuration, which is simply a `UIStackView` with
@@ -137,7 +137,7 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
     
     fileprivate func updateSizeConstraint() {
         stackViewSizeConstraint?.isActive = false
-        let attribute: NSLayoutAttribute = {
+        let attribute: NSLayoutConstraint.Attribute = {
             switch axis {
             case .horizontal: return .height
             case .vertical: return .width
