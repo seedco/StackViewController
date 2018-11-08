@@ -38,10 +38,9 @@ class ImageAttachmentViewController: UIViewController, UIImagePickerControllerDe
     }
     
     // MARK: UIImagePickerControllerDelegate
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        guard let imageURL = info[UIImagePickerControllerReferenceURL] as? URL else { return }
+        guard let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL else { return }
         getImageThumbnail(imageURL) { image in
             if let image = image {
                 self.attachmentView?.addImageWithThumbnail(image)

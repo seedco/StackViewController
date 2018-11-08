@@ -21,7 +21,7 @@ class ImageAttachmentView: UIView, ImageThumbnailViewDelegate {
     
     override init(frame: CGRect) {
         attachButton = UIButton(type: .custom)
-        attachButton.setBackgroundImage(UIImage(named: "attach-button")!, for: UIControlState())
+        attachButton.setBackgroundImage(UIImage(named: "attach-button")!, for: UIControl.State())
         attachButton.adjustsImageWhenHighlighted = true
         
         let stackView = UIStackView(frame: CGRect.zero)
