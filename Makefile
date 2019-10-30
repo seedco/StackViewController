@@ -1,5 +1,5 @@
 SDK="iphonesimulator"
-DESTINATION="platform=iOS Simulator,name=iPhone 6"
+DESTINATION="platform=iOS Simulator,name=iPhone 8"
 PROJECT="StackViewController"
 SCHEME="StackViewController"
 
