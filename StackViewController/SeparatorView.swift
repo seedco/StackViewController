@@ -34,12 +34,12 @@ open class SeparatorView: UIView {
     }
     
     /// The axis (horizontal or vertical) of the separator
-    open var axis = UILayoutConstraintAxis.horizontal {
+    open var axis = NSLayoutConstraint.Axis.horizontal {
         didSet { updateSizeConstraint() }
     }
     
     /// Initializes the receiver for display on the specified axis.
-    public init(axis: UILayoutConstraintAxis) {
+    public init(axis: NSLayoutConstraint.Axis) {
         self.axis = axis
         super.init(frame: CGRect.zero)
         commonInit()
@@ -52,7 +52,7 @@ open class SeparatorView: UIView {
     
     fileprivate func updateSizeConstraint() {
         sizeConstraint?.isActive = false
-        let layoutAttribute: NSLayoutAttribute = {
+        let layoutAttribute: NSLayoutConstraint.Attribute = {
             switch axis {
             case .horizontal: return .height
             case .vertical: return .width

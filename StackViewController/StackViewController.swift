@@ -46,7 +46,7 @@ open class StackViewController: UIViewController {
     /// The axis (direction) that content is laid out in. Setting the axis via
     /// this property instead of `stackView.axis` ensures that any separator
     /// views are recreated to account for the change in layout direction.
-    open var axis: UILayoutConstraintAxis {
+    open var axis: NSLayoutConstraint.Axis {
         get {
             return stackViewContainer.axis
         }
@@ -125,7 +125,7 @@ open class StackViewController: UIViewController {
         _items.insert(item, at: index)
         let viewController = item.toViewController()
         viewControllers.insert(viewController, at: index)
-        addChildViewController(viewController)
+        addChild(viewController)
         stackViewContainer.insertContentView(viewController.view, atIndex: index, canShowSeparator: canShowSeparator)
     }
     
@@ -137,7 +137,7 @@ open class StackViewController: UIViewController {
      */
     open func removeItem(_ item: StackViewItem) {
 
-        guard let index = _items.index(where: { $0 === item }) else { return }
+        guard let index = _items.firstIndex(where: { $0 === item }) else { return }
         removeItemAtIndex(index)
     }
     
@@ -149,9 +149,9 @@ open class StackViewController: UIViewController {
     open func removeItemAtIndex(_ index: Int) {
         _items.remove(at: index)
         let viewController = viewControllers[index]
-        viewController.willMove(toParentViewController: nil)
+        viewController.willMove(toParent: nil)
         stackViewContainer.removeContentViewAtIndex(index)
-        viewController.removeFromParentViewController()
+        viewController.removeFromParent()
         viewControllers.remove(at: index)
     }
     
@@ -165,7 +165,7 @@ open class StackViewController: UIViewController {
      visibility
      */
     open func setCanShowSeparator(_ canShowSeparator: Bool, forItem item: StackViewItem) {
-        guard let index = _items.index(where: { $0 === item }) else { return }
+        guard let index = _items.firstIndex(where: { $0 === item }) else { return }
         setCanShowSeparator(canShowSeparator, forItemAtIndex: index)
     }
     

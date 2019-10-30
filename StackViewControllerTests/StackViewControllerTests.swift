@@ -45,7 +45,7 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.addItem(createViewWithTag(1))
         
         XCTAssertEqual(1, stackViewController.items[0].tag)
-        XCTAssertEqual(1, stackViewController.childViewControllers.count)
+        XCTAssertEqual(1, stackViewController.children.count)
     }
     
     func testAddViewController() {
@@ -53,8 +53,8 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.addItem(viewController)
         
         XCTAssertEqual(10, stackViewController.items[0].tag)
-        XCTAssertEqual(1, stackViewController.childViewControllers.count)
-        XCTAssertEqual(viewController, stackViewController.childViewControllers[0])
+        XCTAssertEqual(1, stackViewController.children.count)
+        XCTAssertEqual(viewController, stackViewController.children[0])
     }
     
     func testInsertView() {
@@ -63,7 +63,7 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.insertItem(createViewWithTag(1), atIndex: 1)
         
         XCTAssertEqual([10, 1, 10], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(3, stackViewController.childViewControllers.count)
+        XCTAssertEqual(3, stackViewController.children.count)
     }
     
     func testInsertViewController() {
@@ -72,7 +72,7 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.insertItem(TestViewController(tag: 10), atIndex: 1)
         
         XCTAssertEqual([1, 10, 2], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(3, stackViewController.childViewControllers.count)
+        XCTAssertEqual(3, stackViewController.children.count)
     }
     
     func testRemoveViewAtIndex() {
@@ -81,7 +81,7 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.removeItemAtIndex(0)
         
         XCTAssertEqual([10], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(1, stackViewController.childViewControllers.count)
+        XCTAssertEqual(1, stackViewController.children.count)
     }
     
     func testRemoveViewControllerAtIndex() {
@@ -90,7 +90,7 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.removeItemAtIndex(1)
         
         XCTAssertEqual([1], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(1, stackViewController.childViewControllers.count)
+        XCTAssertEqual(1, stackViewController.children.count)
     }
     
     func testRemoveItemWithExistingItem() {
@@ -100,7 +100,7 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.removeItem(viewController)
         
         XCTAssertEqual([1], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(1, stackViewController.childViewControllers.count)
+        XCTAssertEqual(1, stackViewController.children.count)
     }
     
     func testRemoveItemWithNonexistentItem() {
@@ -109,7 +109,7 @@ class StackViewControllerTests: XCTestCase {
         stackViewController.removeItem(TestViewController(tag: 10))
         
         XCTAssertEqual([1, 10], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(2, stackViewController.childViewControllers.count)
+        XCTAssertEqual(2, stackViewController.children.count)
     }
     
     func testItemsSetter() {
@@ -119,7 +119,7 @@ class StackViewControllerTests: XCTestCase {
         ]
         
         XCTAssertEqual([1, 10], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(2, stackViewController.childViewControllers.count)
+        XCTAssertEqual(2, stackViewController.children.count)
     }
 
     func testReplaceItems() {
@@ -134,7 +134,7 @@ class StackViewControllerTests: XCTestCase {
         ]
 
         XCTAssertEqual([2, 20], stackViewController.items.map { $0.tag })
-        XCTAssertEqual(2, stackViewController.childViewControllers.count)
+        XCTAssertEqual(2, stackViewController.children.count)
     }
 }
 
