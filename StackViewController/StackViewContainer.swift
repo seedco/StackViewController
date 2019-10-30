@@ -69,6 +69,9 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
                 switch axis {
                 case .horizontal: return .vertical
                 case .vertical: return .horizontal
+                @unknown default:
+                    assertionFailure("Unknown axis. Assuming it should behave the same as vertical.")
+                    return .horizontal
                 }
             }()
             let separatorView = SeparatorView(axis: separatorAxis)
@@ -141,6 +144,9 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
             switch axis {
             case .horizontal: return .height
             case .vertical: return .width
+            @unknown default:
+                assertionFailure("Unknown axis. Assuming it should behave the same as vertical.")
+                return .width
             }
         }()
         stackViewSizeConstraint =
