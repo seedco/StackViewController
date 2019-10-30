@@ -13,7 +13,7 @@ class LabeledTextField: UIView {
     fileprivate struct Appearance {
         static let LabelTextColor = UIColor(white: 0.56, alpha: 1.0)
         static let FieldTextColor = UIColor.black
-        static let Font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        static let Font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
     }
     
     fileprivate struct Layout {
