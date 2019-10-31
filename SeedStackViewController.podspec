@@ -14,4 +14,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "9.0"
   s.source_files = "StackViewController/*.{h,swift}"
   s.frameworks = "UIKit"
+  s.swift_versions = "5.0"
 end
