@@ -26,7 +26,7 @@ open class ImageThumbnailView: UIView {
         let deleteButtonImage = UIImage(named: "delete-button")!
         let deleteButton = UIButton(type: .custom)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setBackgroundImage(deleteButtonImage, for: UIControlState())
+        deleteButton.setBackgroundImage(deleteButtonImage, for: UIControl.State())
         deleteButton.addTarget(self, action: #selector(ImageThumbnailView.didTapDelete(_:)), for: .touchUpInside)
         
         let imageView = UIImageView(image: thumbnail)

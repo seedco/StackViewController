@@ -263,7 +263,7 @@ class StackViewContainerTests: XCTestCase {
             contentViewWithTag(2)
         ]
         
-        let assertSeparatorAxes: (UILayoutConstraintAxis) -> Void = { axis in
+        let assertSeparatorAxes: (NSLayoutConstraint.Axis) -> Void = { axis in
             let separators: [SeparatorView] = self.stackViewContainer.stackView.arrangedSubviews
                 .filter { $0.isKind(of: SeparatorView.self) }
                 .map { $0 as! SeparatorView }

@@ -14,7 +14,7 @@ import UIKit
 open class AutoScrollView: UIScrollView {
     fileprivate struct Constants {
         static let DefaultAnimationDuration: TimeInterval = 0.25
-        static let DefaultAnimationCurve = UIViewAnimationCurve.easeInOut
+        static let DefaultAnimationCurve = UIView.AnimationCurve.easeInOut
         static let ScrollAnimationID = "AutoscrollAnimation"
     }
     
@@ -54,8 +54,8 @@ open class AutoScrollView: UIScrollView {
     
     fileprivate func commonInit() {
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     public override init(frame: CGRect) {
@@ -77,7 +77,7 @@ open class AutoScrollView: UIScrollView {
     // Implementation based on code from Apple documentation
     // https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
     @objc fileprivate func keyboardWillShow(_ notification: Notification) {
-        let keyboardFrameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        let keyboardFrameValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
         guard var keyboardFrame = keyboardFrameValue?.cgRectValue else { return }
         keyboardFrame = convert(keyboardFrame, from: nil)
         
@@ -98,8 +98,8 @@ open class AutoScrollView: UIScrollView {
         var contentBounds = CGRect(origin: contentOffset, size: bounds.size)
         contentBounds.size.height -= bottomInset
         if !contentBounds.contains(firstResponderFrame.origin) {
-            let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? Constants.DefaultAnimationDuration
-            let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UIViewAnimationCurve ?? Constants.DefaultAnimationCurve
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? Constants.DefaultAnimationDuration
+            let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UIView.AnimationCurve ?? Constants.DefaultAnimationCurve
             
             // Dropping down to the old style UIView animation API because the new API
             // does not support setting the curve directly. The other option is to take

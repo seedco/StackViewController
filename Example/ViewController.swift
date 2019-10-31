@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         stackViewController.addItem(LabeledTextFieldController(labelText: "Subject:"))
         
         let textView = UITextView(frame: CGRect.zero)
-        textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        textView.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         textView.isScrollEnabled = false
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 10, bottom: 0, right: 10)
         textView.text = "This field automatically expands as you type, no additional logic required"
@@ -58,10 +58,10 @@ class ViewController: UIViewController {
     }
     
     fileprivate func displayStackViewController() {
-        addChildViewController(stackViewController)
+        addChild(stackViewController)
         view.addSubview(stackViewController.view)
         _ = stackViewController.view.activateSuperviewHuggingConstraints()
-        stackViewController.didMove(toParentViewController: self)
+        stackViewController.didMove(toParent: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
