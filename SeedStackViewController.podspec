@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = "SeedStackViewController"
   s.module_name = "StackViewController"
-  s.version = "0.5.0"
+  s.version = "0.5.1"
   s.summary = "Simplifies the process of building forms and other static content using UIStackView."
   s.description = "StackViewController is a Swift framework that simplifies the process of building forms and other static content using UIStackView."
   s.homepage = "https://github.com/seedco/StackViewController"
