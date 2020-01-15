@@ -71,6 +71,11 @@ open class AutoScrollView: UIScrollView {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+
+    open override func touchesShouldCancel(in view: UIView) -> Bool {
+        guard view.isKind(of: UIButton.self) else { return super.touchesShouldCancel(in: view) }
+        return true
+    }
     
     // MARK: Notifications
     
