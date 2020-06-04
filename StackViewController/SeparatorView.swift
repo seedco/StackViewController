@@ -91,6 +91,6 @@ open class SeparatorView: UIView {
         }()
         let (_, separatorRect) = bounds.divided(atDistance: separatorInset, from: edge)
         separatorColor.setFill()
-        UIRectFill(separatorRect)
+        UIRectFillUsingBlendMode(separatorRect, .normal)
     }
 }
