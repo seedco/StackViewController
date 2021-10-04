@@ -70,6 +70,18 @@ open class StackViewController: UIViewController {
     open var scrollView: UIScrollView {
         return stackViewContainer.scrollView
     }
+    
+    /// This setting determines how the content should be laid out in a horizontally compact environment.
+    public var horizontallyCompactContentWidth: ContentWidth {
+        get { stackViewContainer.scrollView.horizontallyCompactContentWidth }
+        set { stackViewContainer.scrollView.horizontallyCompactContentWidth = newValue }
+    }
+    
+    /// This setting determines how the content should be laid out in a horizontally regular environment.
+    public var horizontallyRegularContentWidth: ContentWidth {
+        get { stackViewContainer.scrollView.horizontallyRegularContentWidth }
+        set { stackViewContainer.scrollView.horizontallyRegularContentWidth = newValue }
+    }
 
     private lazy var stackViewContainer = StackViewContainer()
     

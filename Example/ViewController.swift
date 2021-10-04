@@ -23,6 +23,17 @@ class ViewController: UIViewController {
         edgesForExtendedLayout = UIRectEdge()
         title = "Send Message"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(ViewController.send(_:)))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Toggle", style: .plain, target: self, action: #selector(toggle))
+    }
+    
+    @objc dynamic private func toggle() {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: []) {
+            self.stackViewController.horizontallyRegularContentWidth.toggle()
+            self.stackViewController.view.layoutIfNeeded()
+        } completion: { _ in
+            
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

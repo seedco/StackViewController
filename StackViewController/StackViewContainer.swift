@@ -150,7 +150,7 @@ open class StackViewContainer: UIView, UIScrollViewDelegate {
             }
         }()
         stackViewSizeConstraint =
-            NSLayoutConstraint(item: stackView, attribute: attribute, relatedBy: .equal, toItem: scrollView, attribute: attribute, multiplier: 1.0, constant: 0.0)
+            NSLayoutConstraint(item: stackView, attribute: attribute, relatedBy: .equal, toItem: scrollView.contentViewLayoutGuide, attribute: attribute, multiplier: 1.0, constant: 0.0)
         stackViewSizeConstraint?.isActive = true
     }
     
