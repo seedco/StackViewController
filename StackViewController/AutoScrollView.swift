@@ -28,12 +28,44 @@ open class AutoScrollView: UIScrollView {
         }
         didSet {
             if let contentView = contentView {
+                contentView.translatesAutoresizingMaskIntoConstraints = false
                 addSubview(contentView)
                 updateContentViewConstraints()
             }
         }
     }
     fileprivate var contentViewConstraints: [NSLayoutConstraint]?
+    
+    /// This layout guide follows the `contentView` and honors the `horizontallyCompactContentWidth`
+    /// and `horizontallyRegularContentWidth` values.
+    public var contentViewLayoutGuide = UILayoutGuide()
+    private var contentViewLayoutGuideConstraints: [NSLayoutConstraint] = []
+    
+    /// This setting determines how the content should be laid out in a horizontally compact environment.
+    public var horizontallyCompactContentWidth: ContentWidth = .matchScrollViewWidth {
+        didSet {
+            guard horizontallyCompactContentWidth != oldValue else { return }
+            
+            switch traitCollection.horizontalSizeClass {
+            case .compact: updateContentViewConstraints()
+            case .regular, .unspecified: break // no-op
+            @unknown default: break
+            }
+        }
+    }
+    
+    /// This setting determines how the content should be laid out in a horizontally regular environment.
+    public var horizontallyRegularContentWidth: ContentWidth = .matchScrollViewWidth {
+        didSet {
+            guard horizontallyRegularContentWidth != oldValue else { return }
+            
+            switch traitCollection.horizontalSizeClass {
+            case .regular: updateContentViewConstraints()
+            case .compact, .unspecified: break // no-op
+            @unknown default: break
+            }
+        }
+    }
     
     override open var contentInset: UIEdgeInsets {
         didSet {
@@ -42,20 +74,75 @@ open class AutoScrollView: UIScrollView {
     }
     
     fileprivate func updateContentViewConstraints() {
+        let contentViewFollowsReadableWidth: Bool
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            switch horizontallyCompactContentWidth {
+            case .matchScrollViewWidth:
+                contentViewFollowsReadableWidth = false
+            case .matchReadableContentGuideWidth:
+                contentViewFollowsReadableWidth = true
+            }
+            
+        case .regular:
+            switch horizontallyRegularContentWidth {
+            case .matchScrollViewWidth:
+                contentViewFollowsReadableWidth = false
+            case .matchReadableContentGuideWidth:
+                contentViewFollowsReadableWidth = true
+            }
+            
+        case .unspecified:
+            return // abort early
+            
+        @unknown default:
+            contentViewFollowsReadableWidth = false
+        }
+        
         if let constraints = contentViewConstraints {
             NSLayoutConstraint.deactivate(constraints)
         }
-        if let contentView = contentView {
-            contentViewConstraints = contentView.activateSuperviewHuggingConstraints(insets: contentInset)
+        NSLayoutConstraint.deactivate(contentViewLayoutGuideConstraints)
+        
+        let newLayoutGuide: UILayoutGuide
+        if contentViewFollowsReadableWidth, let contentView = contentView {
+            let newConstraints = [
+                contentView.leadingAnchor.constraint(
+                    equalTo: readableContentGuide.leadingAnchor,
+                    constant: contentInset.left
+                ),
+                contentView.trailingAnchor.constraint(
+                    equalTo: readableContentGuide.trailingAnchor,
+                    constant: -contentInset.right
+                ),
+                contentView.topAnchor.constraint(equalTo: topAnchor, constant: contentInset.top),
+                contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -contentInset.bottom),
+            ]
+            NSLayoutConstraint.activate(newConstraints)
+            contentViewConstraints = newConstraints
+            
+            newLayoutGuide = readableContentGuide
         } else {
-            contentViewConstraints = nil
+            contentViewConstraints = contentView?.activateSuperviewHuggingConstraints(insets: contentInset)
+            
+            newLayoutGuide = frameLayoutGuide
         }
+        
+        contentViewLayoutGuideConstraints = [
+            contentViewLayoutGuide.leadingAnchor.constraint(equalTo: newLayoutGuide.leadingAnchor),
+            contentViewLayoutGuide.topAnchor.constraint(equalTo: newLayoutGuide.topAnchor),
+            contentViewLayoutGuide.trailingAnchor.constraint(equalTo: newLayoutGuide.trailingAnchor),
+            contentViewLayoutGuide.bottomAnchor.constraint(equalTo: newLayoutGuide.bottomAnchor),
+        ]
+        NSLayoutConstraint.activate(contentViewLayoutGuideConstraints)
     }
     
     fileprivate func commonInit() {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(AutoScrollView.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        addLayoutGuide(contentViewLayoutGuide)
     }
     
     public override init(frame: CGRect) {
@@ -75,6 +162,14 @@ open class AutoScrollView: UIScrollView {
     open override func touchesShouldCancel(in view: UIView) -> Bool {
         guard view.isKind(of: UIButton.self) else { return super.touchesShouldCancel(in: view) }
         return true
+    }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        guard traitCollection.horizontalSizeClass != previousTraitCollection?.horizontalSizeClass else {
+            return
+        }
+        
+        updateContentViewConstraints()
     }
     
     // MARK: Notifications
